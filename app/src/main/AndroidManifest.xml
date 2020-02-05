@@ -22,7 +22,7 @@
             android:name=".UserActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".AddShirtTypeActivity"
+            android:name=".AddCategoryActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"

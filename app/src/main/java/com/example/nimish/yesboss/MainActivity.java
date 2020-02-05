@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
 
             case R.id.shit_type:
-                Intent addshirt = new Intent(MainActivity.this, AddShirtTypeActivity.class);
+                Intent addshirt = new Intent(MainActivity.this, AddCategoryActivity.class);
                 startActivity(addshirt);
                 break;
 
