@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/orders"
+        android:icon="@drawable/ic_checklist"
+        android:title="All Orders"
+        />
+
+    <item
+        android:id="@+id/req_order"
+        android:icon="@drawable/ic_request_order"
+        android:title="Request Order"
+        />
+
+</menu>

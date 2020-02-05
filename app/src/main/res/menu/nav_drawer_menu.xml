@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/shit_type"
+            android:icon="@drawable/ic_tshirt"
+            android:title="Add Shirt Type" />
+
+        <item
+            android:id="@+id/add_user"
+            android:icon="@drawable/ic_add_user"
+            android:title="Add New User" />
+
+        <item
+            android:id="@+id/modify_user"
+            android:icon="@drawable/ic_modify_users"
+            android:title="Modify Users" />
+
+    </group>
+
+    <group android:id="@+id/logout_grp"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout" />
+
+    </group>
+</menu>
