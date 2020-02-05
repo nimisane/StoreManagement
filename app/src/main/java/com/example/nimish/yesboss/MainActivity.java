@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -84,14 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.add_user:
-                Intent adduser = new Intent(MainActivity.this,AddUserActivity.class);
+                Intent adduser = new Intent(MainActivity.this, UserActivity.class);
                 startActivity(adduser);
                 break;
 
-            case R.id.modify_user:
-                Intent modifyuser = new Intent(MainActivity.this,ModifyUserActivity.class);
-                startActivity(modifyuser);
-                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

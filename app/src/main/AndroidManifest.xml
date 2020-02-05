@@ -9,14 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminOrderReqActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".AddUserActivity"
+            android:parentActivityName=".UserActivity"></activity>
+        <activity
+            android:name=".AdminOrderReqActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".PlacedOrder" />
         <activity
             android:name=".ModifyUserActivity"
-            android:parentActivityName=".AddUserActivity" />
+            android:parentActivityName=".UserActivity" />
         <activity
-            android:name=".AddUserActivity"
+            android:name=".UserActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddShirtTypeActivity"

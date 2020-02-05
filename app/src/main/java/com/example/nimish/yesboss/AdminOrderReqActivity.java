@@ -20,7 +20,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_order_req);
         select_category_spinner = findViewById(R.id.select_category);
-        select_shop_spinner = findViewById(R.id.shop_name_text);
+        select_shop_spinner = findViewById(R.id.add_pwd_text);
 
         ArrayAdapter<CharSequence> productCategorySpinnerAdapter = ArrayAdapter.createFromResource(this,R.array.product_category_name,android.R.layout.simple_spinner_item);
         productCategorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -41,7 +41,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
             category_name=spin.getItemAtPosition(position).toString();
             Toast.makeText(this,category_name,Toast.LENGTH_SHORT).show();
         }
-        else if(spin.getId() == R.id.shop_name_text)
+        else if(spin.getId() == R.id.add_pwd_text)
         {
             shop_name=spin.getItemAtPosition(position).toString();
             Toast.makeText(this,shop_name,Toast.LENGTH_SHORT).show();

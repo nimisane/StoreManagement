@@ -15,11 +15,6 @@
             android:icon="@drawable/ic_add_user"
             android:title="Add New User" />
 
-        <item
-            android:id="@+id/modify_user"
-            android:icon="@drawable/ic_modify_users"
-            android:title="Modify Users" />
-
     </group>
 
     <group android:id="@+id/logout_grp"

@@ -64,7 +64,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
             shopImage = itemView.findViewById(R.id.shop_photo);
             shopName = itemView.findViewById(R.id.user_shop_name);
-            shopUserID = itemView.findViewById(R.id.user_id);
+            shopUserID = itemView.findViewById(R.id.add_user_id);
             deleteUser = itemView.findViewById(R.id.delete_shop_user);
             editUser = itemView.findViewById(R.id.edit_user);
 
