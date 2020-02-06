@@ -5,12 +5,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class AddCategoryActivity extends AppCompatActivity {
+public class AddCategoryActivity extends AppCompatActivity implements CategoryDialog.CategoryDialogListener {
 
     private RecyclerView categoryRecyclerview;
     private AddCategoryAdapter addCategoryAdapter;
@@ -23,6 +24,7 @@ public class AddCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
 
+        addCategoryButton = findViewById(R.id.add_category);
         addCategoryItems = new ArrayList<>();
         addCategoryItems.add(new AddCategoryItem("Shirt Category1"));
         addCategoryItems.add(new AddCategoryItem("Shirt Category2"));
@@ -41,10 +43,27 @@ public class AddCategoryActivity extends AppCompatActivity {
             }
         });
 
+        addCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
     }
 
     public void removeItem(int position){
         addCategoryItems.remove(position);
         addCategoryAdapter.notifyItemRemoved(position);
+    }
+
+    public void openDialog(){
+        CategoryDialog categoryDialog = new CategoryDialog();
+        categoryDialog.show(getSupportFragmentManager(),"Category Dialog");
+    }
+
+    @Override
+    public void getNewCategory(String category) {
+        addCategoryItems.add(new AddCategoryItem(category));
     }
 }
