@@ -23,6 +23,9 @@ public class AddUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_user);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_black_24dp);// set drawable icon
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         addShop = findViewById(R.id.add_shop_name);
         addUserId = findViewById(R.id.add_user_id);
         addPwd = findViewById(R.id.add_password);
