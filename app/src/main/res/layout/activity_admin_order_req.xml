@@ -7,18 +7,29 @@
     tools:context=".AdminOrderReqActivity">
 
     <ImageView
-        android:id="@+id/add_product_image"
+        android:id="@+id/no_image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_add_a_photo_black_24dp"
         android:layout_margin="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="14dp"
-        android:background="@drawable/border"
-        android:src="@drawable/ic_add_a_photo_black_24dp"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/add_product_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <LinearLayout
         android:id="@+id/category_layout"
@@ -29,6 +40,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_product_image">
+
+        <Button
+            android:id="@+id/add_photo_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Photo"
+            android:layout_margin="10dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/submit_button"
+            />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -134,6 +155,14 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="135dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--        </LinearLayout>-->
+
     </LinearLayout>
 
     <Button
@@ -145,8 +174,15 @@
         android:textColor="@android:color/white"
         android:layout_margin="25dp"
         android:background="@drawable/submit_button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="604dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

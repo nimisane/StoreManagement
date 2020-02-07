@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             break;
                     }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,selectedFragment).addToBackStack(null).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,selectedFragment).commit();
                     return true;
                 }
             };
