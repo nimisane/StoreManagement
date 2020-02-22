@@ -8,17 +8,19 @@ public class AdminOrderItem {
     String shopName;
     String category;
     List<String> imgLink;
+    String mrp;
 
     public AdminOrderItem() {
 
     }
 
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink) {
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, String mrp) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
         this.category = category;
         this.imgLink = imgLink;
+        this.mrp = mrp;
     }
 
     public String getProductName() {
@@ -59,5 +61,13 @@ public class AdminOrderItem {
 
     public void setImgLink(List<String> imgLink) {
         this.imgLink = imgLink;
+    }
+
+    public String getMrp() {
+        return mrp;
+    }
+
+    public void setMrp(String mrp) {
+        this.mrp = mrp;
     }
 }

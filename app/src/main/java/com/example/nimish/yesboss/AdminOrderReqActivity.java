@@ -45,6 +45,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     EditText c;
     EditText productName;
     EditText productCode;
+    EditText productMrp;
     Button addPhotoButton;
     RecyclerView photoRecyclerView;
     AdminProductPhotoAdapter adminProductPhotoAdapter;
@@ -83,6 +84,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         //c = findViewById(R.id.add_shop_name_text);
         productName = findViewById(R.id.add_shop_name_text);
         productCode = findViewById(R.id.add_user_id_text);
+        productMrp = findViewById(R.id.mrp_edit);
 
         submit = findViewById(R.id.submit);
         select_category_spinner = findViewById(R.id.select_category);
@@ -314,8 +316,9 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     public void sendOrder() {
         String proName = productName.getText().toString();
         String proCode = productCode.getText().toString();
+        String proMrp = productMrp.getText().toString();
 
-        if(proName.trim().isEmpty() || proCode.trim().isEmpty()){
+        if(proName.trim().isEmpty() || proCode.trim().isEmpty() || proMrp.isEmpty()){
             Toast.makeText(this, "Enter all the Fields", Toast.LENGTH_LONG).show();
             return;
         }
@@ -346,7 +349,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                     });
         }
 
-       reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload))
+       reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,proMrp))
                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                    @Override
                    public void onSuccess(DocumentReference documentReference) {

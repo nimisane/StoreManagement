@@ -93,7 +93,7 @@
                 android:text="Product Name:"
                 android:textSize="18sp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBaseline_toBaselineOf="@+id/add_shop_name_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/add_shop_name_text"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <EditText
@@ -114,7 +114,7 @@
                 android:text="Product Code:"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_shop_name" />
+                app:layout_constraintTop_toBottomOf="@id/add_shop_name" />
 
             <EditText
                 android:id="@+id/add_user_id_text"
@@ -122,8 +122,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/add_shop_name_text"
-                app:layout_constraintBaseline_toBaselineOf="@+id/add_user_id"
+                app:layout_constraintTop_toBottomOf="@id/add_shop_name_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/add_user_id"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline2" />
 
@@ -135,7 +135,7 @@
                 android:text="Shop Name:"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_user_id" />
+                app:layout_constraintTop_toBottomOf="@id/add_user_id" />
 
             <Spinner
                 android:id="@+id/add_pwd_text"
@@ -143,10 +143,33 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/add_user_id_text"
-                app:layout_constraintBaseline_toBaselineOf="@+id/add_password"
+                app:layout_constraintTop_toBottomOf="@id/add_user_id_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/add_password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/guideline2" />
+
+            <TextView
+                android:id="@+id/mrp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="MRP:"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/add_password" />
+
+            <EditText
+                android:id="@+id/mrp_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:inputType="number"
+                app:layout_constraintTop_toBottomOf="@+id/add_pwd_text"
+                app:layout_constraintBaseline_toBaselineOf="@id/mrp_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline2" />
+
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline2"
