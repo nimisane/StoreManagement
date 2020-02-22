@@ -71,7 +71,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mStorageRef = FirebaseStorage.getInstance().getReference("uploads/");
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         categoryList = new ArrayList<>();
         shopNamesList = new ArrayList<>();
         loadCategory();
@@ -314,17 +314,23 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     }
 
     public void sendOrder() {
-        String proName = productName.getText().toString();
-        String proCode = productCode.getText().toString();
-        String proMrp = productMrp.getText().toString();
+
+        final String proName = productName.getText().toString();
+        final String proCode = productCode.getText().toString();
+        final String proMrp = productMrp.getText().toString();
 
         if(proName.trim().isEmpty() || proCode.trim().isEmpty() || proMrp.isEmpty()){
             Toast.makeText(this, "Enter all the Fields", Toast.LENGTH_LONG).show();
             return;
         }
+        if(adminProductPhotoItems.isEmpty()){
+            Toast.makeText(AdminOrderReqActivity.this,"Please select the prouct image",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         for (int i = 0; i < adminProductPhotoItems.size(); i++) {
             final StorageReference fileReference = mStorageRef.child(adminProductPhotoItems.get(i).toString());
+            final int finalI = i;
             fileReference.putFile(adminProductPhotoItems.get(i).getImg())
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -336,7 +342,26 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                 public void onSuccess(Uri uri) {
                                     Uri downloadUrl = uri;
                                     imgDownload.add(downloadUrl.toString());
-                                    Toast.makeText(AdminOrderReqActivity.this,downloadUrl.toString(), Toast.LENGTH_SHORT).show();
+                                    int s = adminProductPhotoItems.size()-1;
+
+                                    if(finalI == s) {
+
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,proMrp))
+                                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                    @Override
+                                                    public void onSuccess(DocumentReference documentReference) {
+                                                        Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
+                                                        imgDownload.removeAll(imgDownload);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(AdminOrderReqActivity.this,"Request Failed. Try Again!!",Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+
+                                    }
                                 }
                             });
                         }
@@ -349,18 +374,5 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                     });
         }
 
-       reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,proMrp))
-               .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                   @Override
-                   public void onSuccess(DocumentReference documentReference) {
-                       Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
-                   }
-               })
-               .addOnFailureListener(new OnFailureListener() {
-                   @Override
-                   public void onFailure(@NonNull Exception e) {
-                       Toast.makeText(AdminOrderReqActivity.this,"Request Failed. Try Again!!",Toast.LENGTH_LONG).show();
-                   }
-               });
     }
 }
