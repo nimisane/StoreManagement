@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
@@ -66,6 +67,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     String fileName;
     private StorageReference mStorageRef;
     List<String> imgDownload;
+    private StorageTask mUploadTask;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference categoryRef = db.collection("Shirt Category");
     private CollectionReference shopRef = db.collection("Shops");
@@ -143,7 +145,11 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendOrder();
+                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                    Toast.makeText(AdminOrderReqActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendOrder();
+                }
             }
         });
 //        submit.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +244,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                 adminProductPhotoItems.add(new AdminProductPhotoItems("uploading", fileName, imageUri));
                 noImage.setVisibility(View.GONE);
                 adminProductPhotoAdapter.notifyDataSetChanged();
-                Toast.makeText(AdminOrderReqActivity.this, "Selected Single File", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(AdminOrderReqActivity.this, "Selected Single File", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -341,7 +346,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
             final StorageReference fileReference = mStorageRef.child(adminProductPhotoItems.get(i).toString());
             final int finalI = i;
 
-            fileReference.putFile(adminProductPhotoItems.get(i).getImg())
+            mUploadTask = fileReference.putFile(adminProductPhotoItems.get(i).getImg())
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
