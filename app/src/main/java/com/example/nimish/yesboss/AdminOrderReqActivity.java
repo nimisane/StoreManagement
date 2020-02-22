@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.OpenableColumns;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -50,6 +53,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     EditText productMrp;
     Button addPhotoButton;
     RecyclerView photoRecyclerView;
+    ProgressBar progressBar;
     AdminProductPhotoAdapter adminProductPhotoAdapter;
     ArrayList<AdminProductPhotoItems> adminProductPhotoItems;
     private RecyclerView.LayoutManager layoutManager;
@@ -73,6 +77,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progressBar = findViewById(R.id.refresh);
+       // progressBar.setVisibility(View.GONE);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         categoryList = new ArrayList<>();
         shopNamesList = new ArrayList<>();
@@ -331,14 +337,25 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         }
 
         for (int i = 0; i < adminProductPhotoItems.size(); i++) {
+
             final StorageReference fileReference = mStorageRef.child(adminProductPhotoItems.get(i).toString());
             final int finalI = i;
+
             fileReference.putFile(adminProductPhotoItems.get(i).getImg())
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(0);
+                                }
+                            }, 6000);
+
                             Toast.makeText(AdminOrderReqActivity.this, "Image Uploaded"+fileReference.getDownloadUrl().toString(), Toast.LENGTH_SHORT).show();
+
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -356,6 +373,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                                     public void onSuccess(DocumentReference documentReference) {
                                                         Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
                                                         imgDownload.removeAll(imgDownload);
+                                                        Intent i = new Intent(AdminOrderReqActivity.this,MainActivity.class);
+                                                        startActivity(i);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -374,6 +393,14 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(AdminOrderReqActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                           // progressBar.setVisibility(View.VISIBLE);
+                            progressBar.setProgress((int) progress);
                         }
                     });
         }
