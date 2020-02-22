@@ -1,23 +1,33 @@
 package com.example.nimish.yesboss;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.view.View;
-
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
-import java.util.ArrayList;
 
 public class AddCategoryActivity extends AppCompatActivity implements CategoryDialog.CategoryDialogListener {
 
     private RecyclerView categoryRecyclerview;
-    private AddCategoryAdapter addCategoryAdapter;
+    private AddCategoryAdapterUI addCategoryAdapterUI;
     private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton addCategoryButton;
-    private ArrayList<AddCategoryItem> addCategoryItems;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference categoryRef = db.collection("Shirt Category");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,23 +35,8 @@ public class AddCategoryActivity extends AppCompatActivity implements CategoryDi
         setContentView(R.layout.activity_add_category);
 
         addCategoryButton = findViewById(R.id.add_category);
-        addCategoryItems = new ArrayList<>();
-        addCategoryItems.add(new AddCategoryItem("Shirt Category1"));
-        addCategoryItems.add(new AddCategoryItem("Shirt Category2"));
-        categoryRecyclerview = findViewById(R.id.category_recyclerview);
-        categoryRecyclerview.setHasFixedSize(true);
-        addCategoryAdapter = new AddCategoryAdapter(addCategoryItems);
-        layoutManager = new LinearLayoutManager(this);
-        categoryRecyclerview.setLayoutManager(layoutManager);
-        categoryRecyclerview.setAdapter(addCategoryAdapter);
 
-        addCategoryAdapter.setOnItemClickListener(new AddCategoryAdapter.OnItemClickListener() {
-
-            @Override
-            public void onDeleteClick(int position) {
-                removeItem(position);
-            }
-        });
+        loadRecyclerView();
 
         addCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +47,18 @@ public class AddCategoryActivity extends AppCompatActivity implements CategoryDi
 
     }
 
-    public void removeItem(int position){
-        addCategoryItems.remove(position);
-        addCategoryAdapter.notifyItemRemoved(position);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addCategoryAdapterUI.startListening();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        addCategoryAdapterUI.stopListening();
+    }
+
 
     public void openDialog(){
         CategoryDialog categoryDialog = new CategoryDialog();
@@ -64,6 +67,46 @@ public class AddCategoryActivity extends AppCompatActivity implements CategoryDi
 
     @Override
     public void getNewCategory(String category) {
-        addCategoryItems.add(new AddCategoryItem(category));
+
+        if(category.trim().isEmpty()){
+            Toast.makeText(this,"Please enter a valid category",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        categoryRef.add(new AddCategoryItem(category))
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Toast.makeText(AddCategoryActivity.this,"added",Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(AddCategoryActivity.this,"failed",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
+
+    public void loadRecyclerView(){
+
+        Query query = categoryRef.orderBy("category_name");
+        FirestoreRecyclerOptions<AddCategoryItem> options = new FirestoreRecyclerOptions.Builder<AddCategoryItem>()
+                .setQuery(query,AddCategoryItem.class)
+                .build();
+
+        addCategoryAdapterUI = new AddCategoryAdapterUI(options);
+        categoryRecyclerview = findViewById(R.id.category_recyclerview);
+        categoryRecyclerview.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        categoryRecyclerview.setLayoutManager(layoutManager);
+        categoryRecyclerview.setAdapter(addCategoryAdapterUI);
+
+        addCategoryAdapterUI.setOnItemClickListener(new AddCategoryAdapterUI.OnItemClickListener() {
+            @Override
+            public void onDeleteClick(DocumentSnapshot documentSnapshot, int position) {
+                addCategoryAdapterUI.deleteItem(position);
+            }
+        });
+    }
+
+
 }

@@ -23,6 +23,8 @@ public class ModifyUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_user);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         editShop = findViewById(R.id.edit_shop_name);
         editUserId = findViewById(R.id.edit_user_id);

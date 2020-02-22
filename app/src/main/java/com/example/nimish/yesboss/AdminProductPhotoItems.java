@@ -2,6 +2,8 @@ package com.example.nimish.yesboss;
 
 import android.net.Uri;
 
+import androidx.annotation.NonNull;
+
 public class AdminProductPhotoItems {
 
     String photoPath;
@@ -33,4 +35,12 @@ public class AdminProductPhotoItems {
     public Uri getImg() {
         return img;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return photoName;
+    }
 }
+
+
