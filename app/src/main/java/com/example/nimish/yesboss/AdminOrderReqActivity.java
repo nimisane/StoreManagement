@@ -31,7 +31,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AdminOrderReqActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -345,8 +347,10 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                     int s = adminProductPhotoItems.size()-1;
 
                                     if(finalI == s) {
-
-                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,proMrp))
+                                        Calendar calendar = Calendar.getInstance();
+                                        String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+                                        String currentTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,proMrp,currentDate,currentTime))
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {

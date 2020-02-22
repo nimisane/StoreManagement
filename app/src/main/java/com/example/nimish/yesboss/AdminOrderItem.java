@@ -9,18 +9,23 @@ public class AdminOrderItem {
     String category;
     List<String> imgLink;
     String mrp;
+    String orderDate;
+    String orderTime;
 
     public AdminOrderItem() {
 
     }
 
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, String mrp) {
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, String mrp, String orderDate, String orderTime) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
         this.category = category;
         this.imgLink = imgLink;
         this.mrp = mrp;
+        this.orderDate = orderDate;
+        this.orderTime = orderTime;
+
     }
 
     public String getProductName() {
@@ -69,5 +74,21 @@ public class AdminOrderItem {
 
     public void setMrp(String mrp) {
         this.mrp = mrp;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public void setOrderTime(String orderTime) {
+        this.orderTime = orderTime;
     }
 }
