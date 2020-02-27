@@ -1,6 +1,7 @@
 package com.example.nimish.yesboss;
 
 import java.util.List;
+import java.util.Map;
 
 public class AdminOrderItem {
     String productName;
@@ -8,6 +9,7 @@ public class AdminOrderItem {
     String shopName;
     String category;
     List<String> imgLink;
+    Map<String,String> orderData;
     String mrp;
     String orderDate;
     String orderTime;
@@ -16,16 +18,17 @@ public class AdminOrderItem {
 
     }
 
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, String mrp, String orderDate, String orderTime) {
+
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, String> orderData, String mrp, String orderDate, String orderTime) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
         this.category = category;
         this.imgLink = imgLink;
+        this.orderData = orderData;
         this.mrp = mrp;
         this.orderDate = orderDate;
         this.orderTime = orderTime;
-
     }
 
     public String getProductName() {
@@ -87,6 +90,15 @@ public class AdminOrderItem {
     public String getOrderTime() {
         return orderTime;
     }
+
+    public Map<String, String> getOrderData() {
+        return orderData;
+    }
+
+    public void setOrderData(Map<String, String> orderData) {
+        this.orderData = orderData;
+    }
+
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
