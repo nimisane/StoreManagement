@@ -66,7 +66,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     EditText fs55,hs55,sf55;
     Button addPhotoButton;
     RecyclerView photoRecyclerView;
-    ProgressBar progressBar;
+    ProgressBar progressBar,circularProgress;
     AdminProductPhotoAdapter adminProductPhotoAdapter;
     ArrayList<AdminProductPhotoItems> adminProductPhotoItems;
     private RecyclerView.LayoutManager layoutManager;
@@ -92,7 +92,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = findViewById(R.id.refresh);
-       // progressBar.setVisibility(View.GONE);
+        circularProgress = findViewById(R.id.process_bar);
+        circularProgress.setVisibility(View.GONE);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         categoryList = new ArrayList<>();
         shopNamesList = new ArrayList<>();
@@ -479,6 +480,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
             return;
         }
 
+        circularProgress.setVisibility(View.VISIBLE);
+
         for (int i = 0; i < adminProductPhotoItems.size(); i++) {
 
             final StorageReference fileReference = mStorageRef.child(adminProductPhotoItems.get(i).toString());
@@ -488,7 +491,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
+                            circularProgress.setVisibility(View.VISIBLE);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
