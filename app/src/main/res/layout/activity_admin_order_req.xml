@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AdminOrderReqActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -290,7 +290,7 @@
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="300dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1016,6 +1016,6 @@
                 app:layout_constraintGuide_begin="604dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
