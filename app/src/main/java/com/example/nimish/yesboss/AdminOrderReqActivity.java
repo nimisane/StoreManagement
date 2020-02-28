@@ -36,8 +36,10 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -510,10 +512,9 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                     int s = adminProductPhotoItems.size()-1;
 
                                     if(finalI == s) {
-                                        Calendar calendar = Calendar.getInstance();
-                                        String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
-                                        String currentTime = DateFormat.getTimeInstance(DateFormat.SHORT).format(calendar.getTime());
-                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,currentTime))
+                                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh.mm aa");
+                                        String currentDate = dateFormat.format(new Date());
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate))
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
@@ -545,7 +546,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                           // progressBar.setVisibility(View.VISIBLE);
+                            // progressBar.setVisibility(View.VISIBLE);
                             progressBar.setProgress((int) progress);
                         }
                     });
