@@ -58,11 +58,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/select_category"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/product_category"
@@ -86,12 +88,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/add_shop_name_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:textSize="18sp"
+                        android:textColor="@android:color/black"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -106,12 +109,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/add_shop_name" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/add_user_id_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:textSize="18sp"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBaseline_toBaselineOf="@id/add_user_id"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -127,12 +131,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/add_user_id" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/add_pwd_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:textSize="18sp"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBaseline_toBaselineOf="@id/add_password"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline2"
@@ -148,13 +153,14 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/add_password" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/mrp_edit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:inputType="number"
                         android:textSize="18sp"
+                        android:textColor="@android:color/black"
                         app:layout_constraintBaseline_toBaselineOf="@id/mrp_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline2"

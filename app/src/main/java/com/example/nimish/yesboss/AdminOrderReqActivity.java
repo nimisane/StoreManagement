@@ -533,8 +533,10 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
 
                                     if(finalI == s) {
                                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh.mm aa");
+                                        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                                        String sortDate = dateFormat2.format(new Date());
                                         String currentDate = dateFormat.format(new Date());
-                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate))
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,sortDate))
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {

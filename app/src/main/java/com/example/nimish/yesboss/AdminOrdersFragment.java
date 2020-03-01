@@ -27,8 +27,8 @@ public class AdminOrdersFragment extends Fragment {
         adminOrderRecyclerView = rootView.findViewById(R.id.orders_recyclerview);
 
         final ArrayList<AdminOrdersItem> adminOrdersItems = new ArrayList<>();
-        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:10 am","pending"));
-        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:15 am","pending"));
+//        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:10 am","pending"));
+//        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:15 am","pending"));
 
         adminOrderRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());

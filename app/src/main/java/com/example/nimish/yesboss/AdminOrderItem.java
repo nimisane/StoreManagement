@@ -12,12 +12,13 @@ public class AdminOrderItem {
     Map<String,String> orderData;
     String mrp;
     Object orderDate;
+    Object sortDate;
 
     public AdminOrderItem() {
 
     }
 
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, String> orderData, String mrp, Object orderDate) {
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
@@ -26,6 +27,7 @@ public class AdminOrderItem {
         this.orderData = orderData;
         this.mrp = mrp;
         this.orderDate = orderDate;
+        this.sortDate = sortDate;
     }
 
     public String getProductName() {
@@ -92,4 +94,11 @@ public class AdminOrderItem {
         this.orderData = orderData;
     }
 
+    public Object getSortDate() {
+        return sortDate;
+    }
+
+    public void setSortDate(Object sortDate) {
+        this.sortDate = sortDate;
+    }
 }

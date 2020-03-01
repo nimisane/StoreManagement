@@ -63,7 +63,7 @@ public class AdminOrdersReqFragment extends Fragment {
     }
 
     public void loadRecyclerView(){
-        Query query = orderReqRef.orderBy("orderDate",Query.Direction.DESCENDING);
+        Query query = orderReqRef.orderBy("sortDate",Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<AdminOrderItem> options = new FirestoreRecyclerOptions.Builder<AdminOrderItem>()
                 .setQuery(query,AdminOrderItem.class)
                 .build();

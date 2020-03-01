@@ -64,9 +64,9 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
     public void onBindViewHolder(@NonNull AdminOrderViewHolder holder, int position) {
         AdminOrdersItem currentItem = mAdminOrdersItemArrayList.get(position);
 
-        holder.mOrderImg.setImageResource(currentItem.getOrderImg());
-        holder.mDateTime.setText(currentItem.getOrderTime());
-        holder.mStatus.setText(currentItem.getOrderStatus());
+//        holder.mOrderImg.setImageResource(currentItem.getOrderImg());
+//        holder.mDateTime.setText(currentItem.getOrderTime());
+//        holder.mStatus.setText(currentItem.getOrderStatus());
 
     }
 
