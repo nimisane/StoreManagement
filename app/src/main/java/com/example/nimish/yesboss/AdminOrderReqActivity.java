@@ -1,12 +1,12 @@
 package com.example.nimish.yesboss;
 
+import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.OpenableColumns;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,10 +35,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -68,7 +66,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     EditText fs55,hs55,sf55;
     Button addPhotoButton;
     RecyclerView photoRecyclerView;
-    ProgressBar progressBar,circularProgress;
+    ProgressBar progressBar,circularProgress;;
     AdminProductPhotoAdapter adminProductPhotoAdapter;
     ArrayList<AdminProductPhotoItems> adminProductPhotoItems;
     private RecyclerView.LayoutManager layoutManager;
@@ -82,6 +80,37 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     private StorageReference mStorageRef;
     List<String> imgDownload;
     private StorageTask mUploadTask;
+    public static final String FULL36 ="full_36";
+    public static final String HALF36 ="half_36";
+    public static final String SLIM36 ="slim_36";
+    public static final String FULl38 ="full_38";
+    public static final String HALF38 ="half_38";
+    public static final String SLIM38 ="slim_38";
+    public static final String FULL40 ="full_40";
+    public static final String HALF40 ="half_40";
+    public static final String SLIM40 ="slim_40";
+    public static final String FULL42 ="full_42";
+    public static final String HALF42 ="half_42";
+    public static final String SLIM42 ="slim_42";
+    public static final String FULL44 ="full_44";
+    public static final String HALF44 ="half_44";
+    public static final String SLIM44 ="slim_44";
+    public static final String FULL46 ="full_46";
+    public static final String HALF46 ="half_46";
+    public static final String SLIM46 ="slim_46";
+    public static final String FULL48 ="full_48";
+    public static final String HALF48 ="half_48";
+    public static final String SLIM48 ="slim_48";
+    public static final String FULL50 ="full_50";
+    public static final String HALF50 ="half_50";
+    public static final String SLIM50 ="slim_50";
+    public static final String FULL54 ="full_54";
+    public static final String HALF54 ="half_54";
+    public static final String SLIM54 ="slim_54";
+    public static final String FULL55 ="full_55";
+    public static final String HALF55 ="half_55";
+    public static final String SLIM55 ="slim_55";
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference categoryRef = db.collection("Shirt Category");
     private CollectionReference shopRef = db.collection("Shops");
@@ -96,6 +125,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         progressBar = findViewById(R.id.refresh);
         circularProgress = findViewById(R.id.process_bar);
         circularProgress.setVisibility(View.GONE);
+       // progressBar.setVisibility(View.GONE);
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
         categoryList = new ArrayList<>();
         shopNamesList = new ArrayList<>();
@@ -297,28 +327,17 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
 
     }
 
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
 
-    public String getFileName(Uri uri) {
-        String result = null;
-        if (uri.getScheme().equals("content")) {
-            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                }
-            } finally {
-                cursor.close();
-            }
-        }
-        if (result == null) {
-            result = uri.getPath();
-            int cut = result.lastIndexOf('/');
-            if (cut != -1) {
-                result = result.substring(cut + 1);
-            }
-        }
+    private String getFileName(Uri uri){
+        String result = "image_"+System.currentTimeMillis()+"."+getFileExtension(uri);
         return result;
     }
+
 
     public void loadCategory() {
         categoryRef.get()
@@ -442,36 +461,36 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
 
 //        final Map< String,Integer> orderData = new HashMap< String,Integer>();
         final Map< String,String> orderData = new HashMap< String,String>();
-        orderData.put("full_36",fs_36);
-        orderData.put("half_36",hs_36);
-        orderData.put("slim_36",sf_36);
-        orderData.put("full_38",fs_38);
-        orderData.put("half_38",hs_38);
-        orderData.put("slim_38",sf_38);
-        orderData.put("full_40",fs_40);
-        orderData.put("half_40",hs_40);
-        orderData.put("slim_40",sf_40);
-        orderData.put("full_42",fs_42);
-        orderData.put("half_42",hs_42);
-        orderData.put("slim_42",sf_42);
-        orderData.put("full_44",fs_44);
-        orderData.put("half_44",hs_44);
-        orderData.put("slim_44",sf_44);
-        orderData.put("full_46",fs_46);
-        orderData.put("half_46",hs_46);
-        orderData.put("slim_46",sf_46);
-        orderData.put("full_48",fs_48);
-        orderData.put("half_48",hs_48);
-        orderData.put("slim_48",sf_48);
-        orderData.put("full_50",fs_50);
-        orderData.put("half_50",hs_50);
-        orderData.put("slim_50",sf_50);
-        orderData.put("full_54",fs_54);
-        orderData.put("half_54",hs_54);
-        orderData.put("slim_54",sf_54);
-        orderData.put("full_55",fs_55);
-        orderData.put("half_55",hs_55);
-        orderData.put("slim_55",sf_55);
+        orderData.put(FULL36,fs_36);
+        orderData.put(HALF36,hs_36);
+        orderData.put(SLIM36,sf_36);
+        orderData.put(FULl38,fs_38);
+        orderData.put(HALF38,hs_38);
+        orderData.put(SLIM38,sf_38);
+        orderData.put(FULL40,fs_40);
+        orderData.put(HALF40,hs_40);
+        orderData.put(SLIM40,sf_40);
+        orderData.put(FULL42,fs_42);
+        orderData.put(HALF42,hs_42);
+        orderData.put(SLIM42,sf_42);
+        orderData.put(FULL44,fs_44);
+        orderData.put(HALF44,hs_44);
+        orderData.put(SLIM44,sf_44);
+        orderData.put(FULL46,fs_46);
+        orderData.put(HALF46,hs_46);
+        orderData.put(SLIM46,sf_46);
+        orderData.put(FULL48,fs_48);
+        orderData.put(HALF48,hs_48);
+        orderData.put(SLIM48,sf_48);
+        orderData.put(FULL50,fs_50);
+        orderData.put(HALF50,hs_50);
+        orderData.put(SLIM50,sf_50);
+        orderData.put(FULL54,fs_54);
+        orderData.put(HALF54,hs_54);
+        orderData.put(SLIM54,sf_54);
+        orderData.put(FULL55,fs_55);
+        orderData.put(HALF55,hs_55);
+        orderData.put(SLIM55,sf_55);
 
         if(proName.trim().isEmpty() || proCode.trim().isEmpty() || proMrp.isEmpty()){
             Toast.makeText(this, "Enter all the Fields", Toast.LENGTH_LONG).show();
@@ -493,6 +512,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
                             circularProgress.setVisibility(View.VISIBLE);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
@@ -546,7 +566,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
                             double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            // progressBar.setVisibility(View.VISIBLE);
+                           // progressBar.setVisibility(View.VISIBLE);
                             progressBar.setProgress((int) progress);
                         }
                     });
