@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminSendOrder"></activity>
+        <activity android:name=".CategoryPatternGrid"></activity>
+        <activity android:name=".UpdateStoreOrder" />
+        <activity android:name=".AdminSendOrder" />
         <activity
             android:name=".AddUserActivity"
             android:parentActivityName=".UserActivity" />

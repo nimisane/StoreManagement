@@ -30,9 +30,9 @@ public class AdminOrdersAdapter extends RecyclerView.Adapter<AdminOrdersAdapter.
 
         public AdminOrderViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            mOrderImg = itemView.findViewById(R.id.card_order_img);
-            mDateTime = itemView.findViewById(R.id.card_order_time);
-            mStatus = itemView.findViewById(R.id.card_order_status);
+//            mOrderImg = itemView.findViewById(R.id.card_order_img);
+//            mDateTime = itemView.findViewById(R.id.card_order_time);
+//            mStatus = itemView.findViewById(R.id.card_order_status);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

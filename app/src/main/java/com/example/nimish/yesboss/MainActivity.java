@@ -54,6 +54,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             selectedFragment = new AdminOrdersFragment();
                             break;
 
+                        case R.id.all_order:
+                            selectedFragment = new AllOrdersFragment();
+                            break;
+
                         case R.id.req_order:
                             selectedFragment = new AdminOrdersReqFragment();
                             break;

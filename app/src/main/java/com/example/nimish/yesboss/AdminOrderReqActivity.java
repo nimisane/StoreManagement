@@ -115,6 +115,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
     private CollectionReference categoryRef = db.collection("Shirt Category");
     private CollectionReference shopRef = db.collection("Shops");
     private CollectionReference reqRef = db.collection("AdminOrders");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -534,9 +535,11 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                     if(finalI == s) {
                                         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh.mm aa");
                                         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+                                        SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                        String dateOnly = dateOnlyFormat.format(new Date());
                                         String sortDate = dateFormat2.format(new Date());
                                         String currentDate = dateFormat.format(new Date());
-                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,sortDate))
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,sortDate,dateOnly))
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {

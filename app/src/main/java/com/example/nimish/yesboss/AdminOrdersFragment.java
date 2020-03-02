@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,12 +13,25 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.example.nimish.yesboss.AdminOrdersReqFragment.DOCUMENTID;
+
 
 public class AdminOrdersFragment extends Fragment {
     private RecyclerView adminOrderRecyclerView;
-    private AdminOrdersAdapter adminOrderAdapter;
+    private StoreOrderAdapterUI storeOrderAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference shopOrderRef = db.collection("ShopOrders");
 
     @Nullable
     @Override
@@ -25,25 +39,51 @@ public class AdminOrdersFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_admin_orders,container,false);
 
         adminOrderRecyclerView = rootView.findViewById(R.id.orders_recyclerview);
+        SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String dateOnly = dateOnlyFormat.format(new Date());
+        loadRecyclerView(dateOnly);
+        return rootView;
+    }
 
-        final ArrayList<AdminOrdersItem> adminOrdersItems = new ArrayList<>();
-//        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:10 am","pending"));
-//        adminOrdersItems.add(new AdminOrdersItem(R.drawable.ic_request_order,"09:15 am","pending"));
+    public void loadRecyclerView(String dateOnly){
 
+        Query query = shopOrderRef.whereEqualTo("dateOnly",dateOnly).orderBy("sortDate", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<AdminOrdersItem> options = new FirestoreRecyclerOptions.Builder<AdminOrdersItem>()
+                .setQuery(query,AdminOrdersItem.class)
+                .build();
+
+        storeOrderAdapter = new StoreOrderAdapterUI(options);
         adminOrderRecyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
-        adminOrderAdapter = new AdminOrdersAdapter(adminOrdersItems);
-        adminOrderRecyclerView.setLayoutManager(layoutManager);
-        adminOrderRecyclerView.setAdapter(adminOrderAdapter);
-        adminOrderAdapter.setOnItemClickListener(new AdminOrdersAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Intent intent = new Intent(getContext(),PlacedOrder.class);
-                AdminOrdersItem clickedItem = adminOrdersItems.get(position);
-                startActivity(intent);
 
+        adminOrderRecyclerView.setLayoutManager(layoutManager);
+        adminOrderRecyclerView.setAdapter(storeOrderAdapter);
+
+        storeOrderAdapter.setOnItemClickListener(new StoreOrderAdapterUI.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                Intent intent = new Intent(getContext(),UpdateStoreOrder.class);
+                String docID = documentSnapshot.getId();
+                intent.putExtra(DOCUMENTID,docID);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(DocumentSnapshot documentSnapshot, int position) {
+                storeOrderAdapter.deleteItem(position);
             }
         });
-        return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        storeOrderAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        storeOrderAdapter.stopListening();
     }
 }

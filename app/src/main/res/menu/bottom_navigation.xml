@@ -4,6 +4,12 @@
     <item
         android:id="@+id/orders"
         android:icon="@drawable/ic_checklist"
+        android:title="Today's Order"
+        />
+
+    <item
+        android:id="@+id/all_order"
+        android:icon="@drawable/ic_checklist"
         android:title="All Orders"
         />
 

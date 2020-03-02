@@ -1,21 +1,20 @@
 package com.example.nimish.yesboss;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,9 +24,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,11 +64,12 @@ import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM54;
 import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM55;
 import static com.example.nimish.yesboss.AdminOrdersReqFragment.DOCUMENTID;
 
-public class AdminSendOrder extends AppCompatActivity {
+public class UpdateStoreOrder extends AppCompatActivity {
 
     TextView select_category_spinner;
     TextView select_shop_spinner;
 
+    ProgressBar progressBar;
     Button submit;
     TextView productName;
     TextView productCode;
@@ -100,15 +97,17 @@ public class AdminSendOrder extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_send_order);
+        setContentView(R.layout.activity_update_store_order);
 
         imageLink = new ArrayList<>();
 
         productName = findViewById(R.id.add_shop_name_text);
         productCode = findViewById(R.id.add_user_id_text);
         productMrp = findViewById(R.id.mrp_edit);
+        progressBar = findViewById(R.id.progress_bar_update);
+        progressBar.setVisibility(View.GONE);
 
-        imgRecyclerView = findViewById(R.id.add_product_image);
+        imgRecyclerView = findViewById(R.id.update_product_image);
 
         fs36 = findViewById(R.id.fs_36);
         hs36 = findViewById(R.id.hs_36);
@@ -144,18 +143,18 @@ public class AdminSendOrder extends AppCompatActivity {
         submit = findViewById(R.id.submit);
         select_category_spinner = findViewById(R.id.select_category);
         select_shop_spinner = findViewById(R.id.add_pwd_text);
-
         adminSendOrderImageItems = new ArrayList<>();
         Intent intent = getIntent();
         String docID = intent.getStringExtra(DOCUMENTID);
-        reqRef = db.collection("AdminOrders").document(docID);
+        reqRef = db.collection("ShopOrders").document(docID);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendOrder();
+                updateOrder();
             }
         });
+
     }
 
     @Override
@@ -165,13 +164,13 @@ public class AdminSendOrder extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(AdminSendOrder.this, "Error while loading!", Toast.LENGTH_SHORT).show();
-                    Log.d("AdminSendOrder", e.toString());
+                    Toast.makeText(UpdateStoreOrder.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+                    Log.d("UpdateOrder", e.toString());
                     return;
                 }
 
                 if (documentSnapshot.exists()) {
-                    AdminOrderItem adminOrderItem = documentSnapshot.toObject(AdminOrderItem.class);
+                    AdminOrdersItem adminOrderItem = documentSnapshot.toObject(AdminOrdersItem.class);
                     String category = adminOrderItem.getCategory();
                     String proName = adminOrderItem.getProductName();
                     String proCode = adminOrderItem.getProductCode();
@@ -179,7 +178,7 @@ public class AdminSendOrder extends AppCompatActivity {
 
                     adminSendOrderImageItems.clear();
 
-                    for (String imgUrl : adminOrderItem.getImgLink()) {
+                    for (String imgUrl : adminOrderItem.getImageLink()) {
                         adminSendOrderImageItems.add(new AdminSendOrderImageItem(imgUrl));
                     }
 
@@ -217,7 +216,7 @@ public class AdminSendOrder extends AppCompatActivity {
                     String slim55 = orderData.get(SLIM55);
 
                     imgRecyclerView.setHasFixedSize(true);
-                    layoutManager = new LinearLayoutManager(AdminSendOrder.this, LinearLayoutManager.HORIZONTAL, false);
+                    layoutManager = new LinearLayoutManager(UpdateStoreOrder.this, LinearLayoutManager.HORIZONTAL, false);
                     adminSendOrderImgAdapter = new AdminSendImageAdapter(adminSendOrderImageItems);
                     imgRecyclerView.setLayoutManager(layoutManager);
                     imgRecyclerView.setAdapter(adminSendOrderImgAdapter);
@@ -262,8 +261,7 @@ public class AdminSendOrder extends AppCompatActivity {
         });
     }
 
-    public void sendOrder() {
-
+    public void updateOrder(){
         final String proName = productName.getText().toString();
         final String proCode = productCode.getText().toString();
         final String proMrp = productMrp.getText().toString();
@@ -343,36 +341,23 @@ public class AdminSendOrder extends AppCompatActivity {
         String dateOnly = dateOnlyFormat.format(new Date());
         String sortDate = dateFormat2.format(new Date());
         String currentDate = dateFormat.format(new Date());
-        sendRef.add(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly))
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(),"Order Placed",Toast.LENGTH_LONG).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
 
-        PatternItems patternItems = new PatternItems(proCode,imageLink.get(0),category_name);
-        db.collection("CategoryPattern").document(proCode)
-                .set(patternItems)
+        reqRef.set(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("Pattern","Pattern Added");
+                        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.VISIBLE);
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("Pattern",e.getMessage());
+                        Toast.makeText(getApplicationContext(),"Operation Failed",Toast.LENGTH_SHORT).show();
+                        Log.d("updateFailed",e.getMessage());
                     }
                 });
     }
-
 }
-
