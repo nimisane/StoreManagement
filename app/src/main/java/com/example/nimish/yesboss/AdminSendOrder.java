@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,10 +26,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -67,6 +64,7 @@ import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM50;
 import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM54;
 import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM55;
 import static com.example.nimish.yesboss.AdminOrdersReqFragment.DOCUMENTID;
+import static com.example.nimish.yesboss.AdminOrdersReqFragment.ORDATE;
 
 public class AdminSendOrder extends AppCompatActivity {
 
@@ -90,6 +88,7 @@ public class AdminSendOrder extends AppCompatActivity {
     RecyclerView imgRecyclerView;
     RecyclerView.LayoutManager layoutManager;
     List<String> imageLink;
+    ProgressBar progressBar;
 
     AdminSendImageAdapter adminSendOrderImgAdapter;
     ArrayList<AdminSendOrderImageItem> adminSendOrderImageItems;
@@ -107,6 +106,8 @@ public class AdminSendOrder extends AppCompatActivity {
         productName = findViewById(R.id.add_shop_name_text);
         productCode = findViewById(R.id.add_user_id_text);
         productMrp = findViewById(R.id.mrp_edit);
+        progressBar = findViewById(R.id.process_bar);
+        progressBar.setVisibility(View.GONE);
 
         imgRecyclerView = findViewById(R.id.add_product_image);
 
@@ -148,12 +149,13 @@ public class AdminSendOrder extends AppCompatActivity {
         adminSendOrderImageItems = new ArrayList<>();
         Intent intent = getIntent();
         String docID = intent.getStringExtra(DOCUMENTID);
+        final String ordDate = intent.getStringExtra(ORDATE);
         reqRef = db.collection("AdminOrders").document(docID);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendOrder();
+                sendOrder(ordDate);
             }
         });
     }
@@ -184,37 +186,37 @@ public class AdminSendOrder extends AppCompatActivity {
                     }
 
                     String mrp = adminOrderItem.getMrp();
-                    Map<String, String> orderData = adminOrderItem.getOrderData();
-                    String full36 = orderData.get(FULL36);
-                    String half36 = orderData.get(HALF36);
-                    String slim36 = orderData.get(SLIM36);
-                    String full38 = orderData.get(FULl38);
-                    String half38 = orderData.get(HALF38);
-                    String slim38 = orderData.get(SLIM38);
-                    String full40 = orderData.get(FULL40);
-                    String half40 = orderData.get(HALF40);
-                    String slim40 = orderData.get(SLIM40);
-                    String full42 = orderData.get(FULL42);
-                    String half42 = orderData.get(HALF42);
-                    String slim42 = orderData.get(SLIM42);
-                    String full44 = orderData.get(FULL44);
-                    String half44 = orderData.get(HALF44);
-                    String slim44 = orderData.get(SLIM44);
-                    String full46 = orderData.get(FULL46);
-                    String half46 = orderData.get(HALF46);
-                    String slim46 = orderData.get(SLIM46);
-                    String full48 = orderData.get(FULL48);
-                    String half48 = orderData.get(HALF48);
-                    String slim48 = orderData.get(SLIM48);
-                    String full50 = orderData.get(FULL50);
-                    String half50 = orderData.get(HALF50);
-                    String slim50 = orderData.get(SLIM50);
-                    String full54 = orderData.get(FULL54);
-                    String half54 = orderData.get(HALF54);
-                    String slim54 = orderData.get(SLIM54);
-                    String full55 = orderData.get(FULL55);
-                    String half55 = orderData.get(HALF55);
-                    String slim55 = orderData.get(SLIM55);
+                    Map<String, Integer> orderData = adminOrderItem.getOrderData();
+                    String full36 = String.valueOf(orderData.get(FULL36));
+                    String half36 = String.valueOf(orderData.get(HALF36));
+                    String slim36 = String.valueOf(orderData.get(SLIM36));
+                    String full38 = String.valueOf(orderData.get(FULl38));
+                    String half38 = String.valueOf(orderData.get(HALF38));
+                    String slim38 = String.valueOf(orderData.get(SLIM38));
+                    String full40 = String.valueOf(orderData.get(FULL40));
+                    String half40 = String.valueOf(orderData.get(HALF40));
+                    String slim40 = String.valueOf(orderData.get(SLIM40));
+                    String full42 = String.valueOf(orderData.get(FULL42));
+                    String half42 = String.valueOf(orderData.get(HALF42));
+                    String slim42 = String.valueOf(orderData.get(SLIM42));
+                    String full44 = String.valueOf(orderData.get(FULL44));
+                    String half44 = String.valueOf(orderData.get(HALF44));
+                    String slim44 = String.valueOf(orderData.get(SLIM44));
+                    String full46 = String.valueOf(orderData.get(FULL46));
+                    String half46 = String.valueOf(orderData.get(HALF46));
+                    String slim46 = String.valueOf(orderData.get(SLIM46));
+                    String full48 = String.valueOf(orderData.get(FULL48));
+                    String half48 = String.valueOf(orderData.get(HALF48));
+                    String slim48 = String.valueOf(orderData.get(SLIM48));
+                    String full50 = String.valueOf(orderData.get(FULL50));
+                    String half50 = String.valueOf(orderData.get(HALF50));
+                    String slim50 = String.valueOf(orderData.get(SLIM50));
+                    String full54 = String.valueOf(orderData.get(FULL54));
+                    String half54 = String.valueOf(orderData.get(HALF54));
+                    String slim54 = String.valueOf(orderData.get(SLIM54));
+                    String full55 = String.valueOf(orderData.get(FULL55));
+                    String half55 = String.valueOf(orderData.get(HALF55));
+                    String slim55 = String.valueOf(orderData.get(SLIM55));
 
                     imgRecyclerView.setHasFixedSize(true);
                     layoutManager = new LinearLayoutManager(AdminSendOrder.this, LinearLayoutManager.HORIZONTAL, false);
@@ -262,7 +264,9 @@ public class AdminSendOrder extends AppCompatActivity {
         });
     }
 
-    public void sendOrder() {
+    public void sendOrder(String ordDate) {
+
+        progressBar.setVisibility(View.VISIBLE);
 
         final String proName = productName.getText().toString();
         final String proCode = productCode.getText().toString();
@@ -270,38 +274,69 @@ public class AdminSendOrder extends AppCompatActivity {
         final String category_name = select_category_spinner.getText().toString();
         final String shop_name = select_shop_spinner.getText().toString();
 
-        final String fs_36 = fs36.getText().toString();
-        final String hs_36 = hs36.getText().toString();
-        final String sf_36 = sf36.getText().toString();
-        final String fs_38 = fs38.getText().toString();
-        final String hs_38 = hs38.getText().toString();
-        final String sf_38 = sf38.getText().toString();
-        final String fs_40 = fs40.getText().toString();
-        final String hs_40 = hs40.getText().toString();
-        final String sf_40 = sf40.getText().toString();
-        final String fs_42 = fs42.getText().toString();
-        final String hs_42 = hs42.getText().toString();
-        final String sf_42 = sf42.getText().toString();
-        final String fs_44 = fs44.getText().toString();
-        final String hs_44 = hs44.getText().toString();
-        final String sf_44 = sf44.getText().toString();
-        final String fs_46 = fs46.getText().toString();
-        final String hs_46 = hs46.getText().toString();
-        final String sf_46 = sf46.getText().toString();
-        final String fs_48 = fs48.getText().toString();
-        final String hs_48 = hs48.getText().toString();
-        final String sf_48 = sf48.getText().toString();
-        final String fs_50 = fs50.getText().toString();
-        final String hs_50 = hs50.getText().toString();
-        final String sf_50 = sf50.getText().toString();
-        final String fs_54 = fs54.getText().toString();
-        final String hs_54 = hs54.getText().toString();
-        final String sf_54 = sf54.getText().toString();
-        final String fs_55 = fs55.getText().toString();
-        final String hs_55 = hs55.getText().toString();
-        final String sf_55 = sf55.getText().toString();
+//        final String fs_36 = fs36.getText().toString();
+////        final String hs_36 = hs36.getText().toString();
+////        final String sf_36 = sf36.getText().toString();
+////        final String fs_38 = fs38.getText().toString();
+////        final String hs_38 = hs38.getText().toString();
+////        final String sf_38 = sf38.getText().toString();
+////        final String fs_40 = fs40.getText().toString();
+////        final String hs_40 = hs40.getText().toString();
+////        final String sf_40 = sf40.getText().toString();
+////        final String fs_42 = fs42.getText().toString();
+////        final String hs_42 = hs42.getText().toString();
+////        final String sf_42 = sf42.getText().toString();
+////        final String fs_44 = fs44.getText().toString();
+////        final String hs_44 = hs44.getText().toString();
+////        final String sf_44 = sf44.getText().toString();
+////        final String fs_46 = fs46.getText().toString();
+////        final String hs_46 = hs46.getText().toString();
+////        final String sf_46 = sf46.getText().toString();
+////        final String fs_48 = fs48.getText().toString();
+////        final String hs_48 = hs48.getText().toString();
+////        final String sf_48 = sf48.getText().toString();
+////        final String fs_50 = fs50.getText().toString();
+////        final String hs_50 = hs50.getText().toString();
+////        final String sf_50 = sf50.getText().toString();
+////        final String fs_54 = fs54.getText().toString();
+////        final String hs_54 = hs54.getText().toString();
+////        final String sf_54 = sf54.getText().toString();
+////        final String fs_55 = fs55.getText().toString();
+////        final String hs_55 = hs55.getText().toString();
+////        final String sf_55 = sf55.getText().toString();
 
-        final Map<String, String> orderData = new HashMap<String, String>();
+        final int fs_36 = Integer.parseInt(fs36.getText().toString());
+        final int hs_36 = Integer.parseInt(hs36.getText().toString());
+        final int sf_36 = Integer.parseInt(sf36.getText().toString());
+        final int fs_38 = Integer.parseInt(fs38.getText().toString());
+        final int hs_38 = Integer.parseInt(hs38.getText().toString());
+        final int sf_38 = Integer.parseInt(sf38.getText().toString());
+        final int fs_40 = Integer.parseInt(fs40.getText().toString());
+        final int hs_40 = Integer.parseInt(hs40.getText().toString());
+        final int sf_40 = Integer.parseInt(sf40.getText().toString());
+        final int fs_42 = Integer.parseInt(fs42.getText().toString());
+        final int hs_42 = Integer.parseInt(hs42.getText().toString());
+        final int sf_42 = Integer.parseInt(sf42.getText().toString());
+        final int fs_44 = Integer.parseInt(fs44.getText().toString());
+        final int hs_44 = Integer.parseInt(hs44.getText().toString());
+        final int sf_44 = Integer.parseInt(sf44.getText().toString());
+        final int fs_46 = Integer.parseInt(fs46.getText().toString());
+        final int hs_46 = Integer.parseInt(hs46.getText().toString());
+        final int sf_46 = Integer.parseInt(sf46.getText().toString());
+        final int fs_48 = Integer.parseInt(fs48.getText().toString());
+        final int hs_48 = Integer.parseInt(hs48.getText().toString());
+        final int sf_48 = Integer.parseInt(sf48.getText().toString());
+        final int fs_50 = Integer.parseInt(fs50.getText().toString());
+        final int hs_50 = Integer.parseInt(hs50.getText().toString());
+        final int sf_50 = Integer.parseInt(sf50.getText().toString());
+        final int fs_54 = Integer.parseInt(fs54.getText().toString());
+        final int hs_54 = Integer.parseInt(hs54.getText().toString());
+        final int sf_54 = Integer.parseInt(sf54.getText().toString());
+        final int fs_55 = Integer.parseInt(fs55.getText().toString());
+        final int hs_55 = Integer.parseInt(hs55.getText().toString());
+        final int sf_55 = Integer.parseInt(sf55.getText().toString());
+
+        final Map<String, Integer> orderData = new HashMap<String, Integer>();
         orderData.put(FULL36, fs_36);
         orderData.put(HALF36, hs_36);
         orderData.put(SLIM36, sf_36);
@@ -343,35 +378,23 @@ public class AdminSendOrder extends AppCompatActivity {
         String dateOnly = dateOnlyFormat.format(new Date());
         String sortDate = dateFormat2.format(new Date());
         String currentDate = dateFormat.format(new Date());
-        sendRef.add(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly))
+        sendRef.add(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Toast.makeText(getApplicationContext(),"Order Placed",Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
 
-        PatternItems patternItems = new PatternItems(proCode,imageLink.get(0),category_name);
-        db.collection("CategoryPattern").document(proCode)
-                .set(patternItems)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Pattern","Pattern Added");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Pattern",e.getMessage());
-                    }
-                });
+
     }
 
 }

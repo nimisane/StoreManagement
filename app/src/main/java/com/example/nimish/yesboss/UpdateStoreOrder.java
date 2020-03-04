@@ -63,6 +63,7 @@ import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM50;
 import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM54;
 import static com.example.nimish.yesboss.AdminOrderReqActivity.SLIM55;
 import static com.example.nimish.yesboss.AdminOrdersReqFragment.DOCUMENTID;
+import static com.example.nimish.yesboss.AdminOrdersReqFragment.ORDATE;
 
 public class UpdateStoreOrder extends AppCompatActivity {
 
@@ -146,12 +147,13 @@ public class UpdateStoreOrder extends AppCompatActivity {
         adminSendOrderImageItems = new ArrayList<>();
         Intent intent = getIntent();
         String docID = intent.getStringExtra(DOCUMENTID);
+        final String ordDate = intent.getStringExtra(ORDATE);
         reqRef = db.collection("ShopOrders").document(docID);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateOrder();
+                updateOrder(ordDate);
             }
         });
 
@@ -183,37 +185,37 @@ public class UpdateStoreOrder extends AppCompatActivity {
                     }
 
                     String mrp = adminOrderItem.getMrp();
-                    Map<String, String> orderData = adminOrderItem.getOrderData();
-                    String full36 = orderData.get(FULL36);
-                    String half36 = orderData.get(HALF36);
-                    String slim36 = orderData.get(SLIM36);
-                    String full38 = orderData.get(FULl38);
-                    String half38 = orderData.get(HALF38);
-                    String slim38 = orderData.get(SLIM38);
-                    String full40 = orderData.get(FULL40);
-                    String half40 = orderData.get(HALF40);
-                    String slim40 = orderData.get(SLIM40);
-                    String full42 = orderData.get(FULL42);
-                    String half42 = orderData.get(HALF42);
-                    String slim42 = orderData.get(SLIM42);
-                    String full44 = orderData.get(FULL44);
-                    String half44 = orderData.get(HALF44);
-                    String slim44 = orderData.get(SLIM44);
-                    String full46 = orderData.get(FULL46);
-                    String half46 = orderData.get(HALF46);
-                    String slim46 = orderData.get(SLIM46);
-                    String full48 = orderData.get(FULL48);
-                    String half48 = orderData.get(HALF48);
-                    String slim48 = orderData.get(SLIM48);
-                    String full50 = orderData.get(FULL50);
-                    String half50 = orderData.get(HALF50);
-                    String slim50 = orderData.get(SLIM50);
-                    String full54 = orderData.get(FULL54);
-                    String half54 = orderData.get(HALF54);
-                    String slim54 = orderData.get(SLIM54);
-                    String full55 = orderData.get(FULL55);
-                    String half55 = orderData.get(HALF55);
-                    String slim55 = orderData.get(SLIM55);
+                    Map<String, Integer> orderData = adminOrderItem.getOrderData();
+                    int full36 = orderData.get(FULL36);
+                    int half36 = orderData.get(HALF36);
+                    int slim36 = orderData.get(SLIM36);
+                    int full38 = orderData.get(FULl38);
+                    int half38 = orderData.get(HALF38);
+                    int slim38 = orderData.get(SLIM38);
+                    int full40 = orderData.get(FULL40);
+                    int half40 = orderData.get(HALF40);
+                    int slim40 = orderData.get(SLIM40);
+                    int full42 = orderData.get(FULL42);
+                    int half42 = orderData.get(HALF42);
+                    int slim42 = orderData.get(SLIM42);
+                    int full44 = orderData.get(FULL44);
+                    int half44 = orderData.get(HALF44);
+                    int slim44 = orderData.get(SLIM44);
+                    int full46 = orderData.get(FULL46);
+                    int half46 = orderData.get(HALF46);
+                    int slim46 = orderData.get(SLIM46);
+                    int full48 = orderData.get(FULL48);
+                    int half48 = orderData.get(HALF48);
+                    int slim48 = orderData.get(SLIM48);
+                    int full50 = orderData.get(FULL50);
+                    int half50 = orderData.get(HALF50);
+                    int slim50 = orderData.get(SLIM50);
+                    int full54 = orderData.get(FULL54);
+                    int half54 = orderData.get(HALF54);
+                    int slim54 = orderData.get(SLIM54);
+                    int full55 = orderData.get(FULL55);
+                    int half55 = orderData.get(HALF55);
+                    int slim55 = orderData.get(SLIM55);
 
                     imgRecyclerView.setHasFixedSize(true);
                     layoutManager = new LinearLayoutManager(UpdateStoreOrder.this, LinearLayoutManager.HORIZONTAL, false);
@@ -226,80 +228,112 @@ public class UpdateStoreOrder extends AppCompatActivity {
                     productCode.setText(proCode);
                     select_shop_spinner.setText(shopName);
                     productMrp.setText(mrp);
-                    fs36.setText(full36);
-                    hs36.setText(half36);
-                    sf36.setText(slim36);
-                    fs38.setText(full38);
-                    hs38.setText(half38);
-                    sf38.setText(slim38);
-                    fs40.setText(full40);
-                    hs40.setText(half40);
-                    sf40.setText(slim40);
-                    fs42.setText(full42);
-                    hs42.setText(half42);
-                    sf42.setText(slim42);
-                    fs44.setText(full44);
-                    hs44.setText(half44);
-                    sf44.setText(slim44);
-                    fs46.setText(full46);
-                    hs46.setText(half46);
-                    sf46.setText(slim46);
-                    fs48.setText(full48);
-                    hs48.setText(half48);
-                    sf48.setText(slim48);
-                    fs50.setText(full50);
-                    hs50.setText(half50);
-                    sf50.setText(slim50);
-                    fs54.setText(full54);
-                    hs54.setText(half54);
-                    sf54.setText(slim54);
-                    fs55.setText(full55);
-                    hs55.setText(half55);
-                    sf55.setText(slim55);
+                    fs36.setText(String.valueOf(full36));
+                    hs36.setText(String.valueOf(half36));
+                    sf36.setText(String.valueOf(slim36));
+                    fs38.setText(String.valueOf(full38));
+                    hs38.setText(String.valueOf(half38));
+                    sf38.setText(String.valueOf(slim38));
+                    fs40.setText(String.valueOf(full40));
+                    hs40.setText(String.valueOf(half40));
+                    sf40.setText(String.valueOf(slim40));
+                    fs42.setText(String.valueOf(full42));
+                    hs42.setText(String.valueOf(half42));
+                    sf42.setText(String.valueOf(slim42));
+                    fs44.setText(String.valueOf(full44));
+                    hs44.setText(String.valueOf(half44));
+                    sf44.setText(String.valueOf(slim44));
+                    fs46.setText(String.valueOf(full46));
+                    hs46.setText(String.valueOf(half46));
+                    sf46.setText(String.valueOf(slim46));
+                    fs48.setText(String.valueOf(full48));
+                    hs48.setText(String.valueOf(half48));
+                    sf48.setText(String.valueOf(slim48));
+                    fs50.setText(String.valueOf(full50));
+                    hs50.setText(String.valueOf(half50));
+                    sf50.setText(String.valueOf(slim50));
+                    fs54.setText(String.valueOf(full54));
+                    hs54.setText(String.valueOf(half54));
+                    sf54.setText(String.valueOf(slim54));
+                    fs55.setText(String.valueOf(full55));
+                    hs55.setText(String.valueOf(half55));
+                    sf55.setText(String.valueOf(slim55));
                 }
             }
         });
     }
 
-    public void updateOrder(){
+    public void updateOrder(String ordDate){
+        progressBar.setVisibility(View.VISIBLE);
         final String proName = productName.getText().toString();
         final String proCode = productCode.getText().toString();
         final String proMrp = productMrp.getText().toString();
         final String category_name = select_category_spinner.getText().toString();
         final String shop_name = select_shop_spinner.getText().toString();
 
-        final String fs_36 = fs36.getText().toString();
-        final String hs_36 = hs36.getText().toString();
-        final String sf_36 = sf36.getText().toString();
-        final String fs_38 = fs38.getText().toString();
-        final String hs_38 = hs38.getText().toString();
-        final String sf_38 = sf38.getText().toString();
-        final String fs_40 = fs40.getText().toString();
-        final String hs_40 = hs40.getText().toString();
-        final String sf_40 = sf40.getText().toString();
-        final String fs_42 = fs42.getText().toString();
-        final String hs_42 = hs42.getText().toString();
-        final String sf_42 = sf42.getText().toString();
-        final String fs_44 = fs44.getText().toString();
-        final String hs_44 = hs44.getText().toString();
-        final String sf_44 = sf44.getText().toString();
-        final String fs_46 = fs46.getText().toString();
-        final String hs_46 = hs46.getText().toString();
-        final String sf_46 = sf46.getText().toString();
-        final String fs_48 = fs48.getText().toString();
-        final String hs_48 = hs48.getText().toString();
-        final String sf_48 = sf48.getText().toString();
-        final String fs_50 = fs50.getText().toString();
-        final String hs_50 = hs50.getText().toString();
-        final String sf_50 = sf50.getText().toString();
-        final String fs_54 = fs54.getText().toString();
-        final String hs_54 = hs54.getText().toString();
-        final String sf_54 = sf54.getText().toString();
-        final String fs_55 = fs55.getText().toString();
-        final String hs_55 = hs55.getText().toString();
-        final String sf_55 = sf55.getText().toString();
+//        final String fs_36 = fs36.getText().toString();
+//        final String hs_36 = hs36.getText().toString();
+//        final String sf_36 = sf36.getText().toString();
+//        final String fs_38 = fs38.getText().toString();
+//        final String hs_38 = hs38.getText().toString();
+//        final String sf_38 = sf38.getText().toString();
+//        final String fs_40 = fs40.getText().toString();
+//        final String hs_40 = hs40.getText().toString();
+//        final String sf_40 = sf40.getText().toString();
+//        final String fs_42 = fs42.getText().toString();
+//        final String hs_42 = hs42.getText().toString();
+//        final String sf_42 = sf42.getText().toString();
+//        final String fs_44 = fs44.getText().toString();
+//        final String hs_44 = hs44.getText().toString();
+//        final String sf_44 = sf44.getText().toString();
+//        final String fs_46 = fs46.getText().toString();
+//        final String hs_46 = hs46.getText().toString();
+//        final String sf_46 = sf46.getText().toString();
+//        final String fs_48 = fs48.getText().toString();
+//        final String hs_48 = hs48.getText().toString();
+//        final String sf_48 = sf48.getText().toString();
+//        final String fs_50 = fs50.getText().toString();
+//        final String hs_50 = hs50.getText().toString();
+//        final String sf_50 = sf50.getText().toString();
+//        final String fs_54 = fs54.getText().toString();
+//        final String hs_54 = hs54.getText().toString();
+//        final String sf_54 = sf54.getText().toString();
+//        final String fs_55 = fs55.getText().toString();
+//        final String hs_55 = hs55.getText().toString();
+//        final String sf_55 = sf55.getText().toString();
 
-        final Map<String, String> orderData = new HashMap<String, String>();
+        final int fs_36 = Integer.parseInt(fs36.getText().toString());
+        final int hs_36 = Integer.parseInt(hs36.getText().toString());
+        final int sf_36 = Integer.parseInt(sf36.getText().toString());
+        final int fs_38 = Integer.parseInt(fs38.getText().toString());
+        final int hs_38 = Integer.parseInt(hs38.getText().toString());
+        final int sf_38 = Integer.parseInt(sf38.getText().toString());
+        final int fs_40 = Integer.parseInt(fs40.getText().toString());
+        final int hs_40 = Integer.parseInt(hs40.getText().toString());
+        final int sf_40 = Integer.parseInt(sf40.getText().toString());
+        final int fs_42 = Integer.parseInt(fs42.getText().toString());
+        final int hs_42 = Integer.parseInt(hs42.getText().toString());
+        final int sf_42 = Integer.parseInt(sf42.getText().toString());
+        final int fs_44 = Integer.parseInt(fs44.getText().toString());
+        final int hs_44 = Integer.parseInt(hs44.getText().toString());
+        final int sf_44 = Integer.parseInt(sf44.getText().toString());
+        final int fs_46 = Integer.parseInt(fs46.getText().toString());
+        final int hs_46 = Integer.parseInt(hs46.getText().toString());
+        final int sf_46 = Integer.parseInt(sf46.getText().toString());
+        final int fs_48 = Integer.parseInt(fs48.getText().toString());
+        final int hs_48 = Integer.parseInt(hs48.getText().toString());
+        final int sf_48 = Integer.parseInt(sf48.getText().toString());
+        final int fs_50 = Integer.parseInt(fs50.getText().toString());
+        final int hs_50 = Integer.parseInt(hs50.getText().toString());
+        final int sf_50 = Integer.parseInt(sf50.getText().toString());
+        final int fs_54 = Integer.parseInt(fs54.getText().toString());
+        final int hs_54 = Integer.parseInt(hs54.getText().toString());
+        final int sf_54 = Integer.parseInt(sf54.getText().toString());
+        final int fs_55 = Integer.parseInt(fs55.getText().toString());
+        final int hs_55 = Integer.parseInt(hs55.getText().toString());
+        final int sf_55 = Integer.parseInt(sf55.getText().toString());
+
+        final Map<String, Integer> orderData = new HashMap<String, Integer>();
         orderData.put(FULL36, fs_36);
         orderData.put(HALF36, hs_36);
         orderData.put(SLIM36, sf_36);
@@ -342,19 +376,20 @@ public class UpdateStoreOrder extends AppCompatActivity {
         String sortDate = dateFormat2.format(new Date());
         String currentDate = dateFormat.format(new Date());
 
-        reqRef.set(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly))
+        reqRef.set(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.VISIBLE);
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                        startActivity(intent);
+                        progressBar.setVisibility(View.GONE);
+//                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(getApplicationContext(),"Operation Failed",Toast.LENGTH_SHORT).show();
                         Log.d("updateFailed",e.getMessage());
                     }

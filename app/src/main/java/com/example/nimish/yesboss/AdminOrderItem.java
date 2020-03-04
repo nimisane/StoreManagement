@@ -9,7 +9,7 @@ public class AdminOrderItem {
     String shopName;
     String category;
     List<String> imgLink;
-    Map<String,String> orderData;
+    Map<String,Integer> orderData;
     String mrp;
     Object orderDate;
     Object sortDate;
@@ -32,7 +32,7 @@ public class AdminOrderItem {
 //    }
 
 
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly) {
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
@@ -101,11 +101,11 @@ public class AdminOrderItem {
         this.orderDate = orderDate;
     }
 
-    public Map<String, String> getOrderData() {
+    public Map<String, Integer> getOrderData() {
         return orderData;
     }
 
-    public void setOrderData(Map<String, String> orderData) {
+    public void setOrderData(Map<String, Integer> orderData) {
         this.orderData = orderData;
     }
 

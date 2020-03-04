@@ -1,0 +1,1037 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TotalOrderDetails">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pattern_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:layout_margin="5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/select_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order Date"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="5dp"
+                app:layout_constraintTop_toBottomOf="@id/pattern_text"
+                />
+
+            <TextView
+                android:id="@+id/total_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Total Order"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@android:color/black"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toBottomOf="@id/select_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/order_layout"
+                android:textSize="18sp"/>
+
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/order_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary">
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/order_guideline0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="81dp" />
+
+                    <TextView
+                        android:id="@+id/size_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="SIZE"
+                        android:textAllCaps="true"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        app:layout_constraintEnd_toEndOf="@id/order_guideline0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/fs_text"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="F/S"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/size_text"
+                        app:layout_constraintEnd_toStartOf="@id/hs_text"
+                        app:layout_constraintStart_toEndOf="@id/order_guideline0" />
+
+                    <TextView
+                        android:id="@+id/hs_text"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="H/S"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/fs_text"
+                        app:layout_constraintEnd_toStartOf="@id/sf_text"
+                        app:layout_constraintStart_toEndOf="@id/fs_text" />
+
+                    <TextView
+                        android:id="@+id/sf_text"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="S/F"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/hs_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/hs_text" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--        <androidx.core.widget.NestedScrollView-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="300dp">-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_36"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="36"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_36"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_36"
+                            app:layout_constraintEnd_toStartOf="@id/hs_36"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline" />
+
+                        <TextView
+                            android:id="@+id/hs_36"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_36"
+                            app:layout_constraintEnd_toStartOf="@id/sf_36"
+                            app:layout_constraintStart_toEndOf="@id/fs_36" />
+
+                        <TextView
+                            android:id="@+id/sf_36"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_36"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_36" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_38"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:text="38"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_38"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_38"
+                            app:layout_constraintEnd_toStartOf="@id/hs_38"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline1" />
+
+                        <TextView
+                            android:id="@+id/hs_38"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_38"
+                            app:layout_constraintEnd_toStartOf="@id/sf_38"
+                            app:layout_constraintStart_toEndOf="@id/fs_38" />
+
+                        <TextView
+                            android:id="@+id/sf_38"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_38"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_38" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_40"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="40"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_40"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_40"
+                            app:layout_constraintEnd_toStartOf="@id/hs_40"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline2" />
+
+                        <TextView
+                            android:id="@+id/hs_40"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_40"
+                            app:layout_constraintEnd_toStartOf="@id/sf_40"
+                            app:layout_constraintStart_toEndOf="@id/fs_40" />
+
+                        <TextView
+                            android:id="@+id/sf_40"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_40"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_40" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_42"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="42"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline3"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_42"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_42"
+                            app:layout_constraintEnd_toStartOf="@id/hs_42"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline3" />
+
+                        <TextView
+                            android:id="@+id/hs_42"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_42"
+                            app:layout_constraintEnd_toStartOf="@id/sf_42"
+                            app:layout_constraintStart_toEndOf="@id/fs_42" />
+
+                        <TextView
+                            android:id="@+id/sf_42"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_42"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_42" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_44"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="44"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_44"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_44"
+                            app:layout_constraintEnd_toStartOf="@id/hs_44"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline4" />
+
+                        <TextView
+                            android:id="@+id/hs_44"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_44"
+                            app:layout_constraintEnd_toStartOf="@id/sf_44"
+                            app:layout_constraintStart_toEndOf="@id/fs_44" />
+
+                        <TextView
+                            android:id="@+id/sf_44"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_44"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_44" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_46"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="46"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline5"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_46"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_46"
+                            app:layout_constraintEnd_toStartOf="@id/hs_46"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline5" />
+
+                        <TextView
+                            android:id="@+id/hs_46"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_46"
+                            app:layout_constraintEnd_toStartOf="@id/sf_46"
+                            app:layout_constraintStart_toEndOf="@id/fs_46" />
+
+                        <TextView
+                            android:id="@+id/sf_46"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_46"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_46" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_48"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="48"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_48"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_48"
+                            app:layout_constraintEnd_toStartOf="@id/hs_48"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline6" />
+
+                        <TextView
+                            android:id="@+id/hs_48"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_48"
+                            app:layout_constraintEnd_toStartOf="@id/sf_48"
+                            app:layout_constraintStart_toEndOf="@id/fs_48" />
+
+                        <TextView
+                            android:id="@+id/sf_48"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_48"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_48" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_50"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="50"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline7"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_50"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_50"
+                            app:layout_constraintEnd_toStartOf="@id/hs_50"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline7" />
+
+                        <TextView
+                            android:id="@+id/hs_50"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_50"
+                            app:layout_constraintEnd_toStartOf="@id/sf_50"
+                            app:layout_constraintStart_toEndOf="@id/fs_50" />
+
+                        <TextView
+                            android:id="@+id/sf_50"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_50"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_50" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_54"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:text="54"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline8"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_54"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_54"
+                            app:layout_constraintEnd_toStartOf="@id/hs_54"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline8" />
+
+                        <TextView
+                            android:id="@+id/hs_54"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_54"
+                            app:layout_constraintEnd_toStartOf="@id/sf_54"
+                            app:layout_constraintStart_toEndOf="@id/fs_54" />
+
+                        <TextView
+                            android:id="@+id/sf_54"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_54"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_54" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/size_55"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:gravity="center"
+                            android:text="55"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline9"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/fs_55"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/size_55"
+                            app:layout_constraintEnd_toStartOf="@id/hs_55"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline9" />
+
+                        <TextView
+                            android:id="@+id/hs_55"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/fs_55"
+                            app:layout_constraintEnd_toStartOf="@id/sf_55"
+                            app:layout_constraintStart_toEndOf="@id/fs_55" />
+
+                        <TextView
+                            android:id="@+id/sf_55"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/hs_55"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/hs_55" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/order_guideline10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="81dp" />
+
+                        <TextView
+                            android:id="@+id/total_size"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
+                            android:text="Total"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/order_guideline10"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/total_fs"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/total_size"
+                            app:layout_constraintEnd_toStartOf="@id/total_hs"
+                            app:layout_constraintStart_toEndOf="@id/order_guideline10" />
+
+                        <TextView
+                            android:id="@+id/total_hs"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/total_fs"
+                            app:layout_constraintEnd_toStartOf="@id/total_sf"
+                            app:layout_constraintStart_toEndOf="@id/total_fs" />
+
+                        <TextView
+                            android:id="@+id/total_sf"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:gravity="center"
+                            android:inputType="number"
+                            android:text="0"
+                            android:textColor="@android:color/black"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="20sp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/total_hs"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/total_hs" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <!--        </androidx.core.widget.NestedScrollView>-->
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

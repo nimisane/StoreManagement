@@ -38,7 +38,7 @@ public class AdminOrdersReqFragment extends Fragment {
     private CollectionReference orderReqRef = db.collection("AdminOrders");
 
     public static final String DOCUMENTID = "docID";
-
+    public static final String ORDATE = "ordDate";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,7 +82,9 @@ public class AdminOrdersReqFragment extends Fragment {
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Intent intent = new Intent(getContext(),AdminSendOrder.class);
                 String docID = documentSnapshot.getId();
+                String ordDate = documentSnapshot.get("dateOnly").toString();
                 intent.putExtra(DOCUMENTID,docID);
+                intent.putExtra(ORDATE,ordDate);
                 startActivity(intent);
             }
 

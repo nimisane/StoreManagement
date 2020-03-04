@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 
 public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersItem, StoreOrderAdapterUI.StoreOrderViewHolder> {
 
-    private OnItemClickListener listener;
+    private OnItemClicklistener listener;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
@@ -29,11 +29,11 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
 
     @Override
     protected void onBindViewHolder(@NonNull StoreOrderViewHolder holder, int position, @NonNull AdminOrdersItem model) {
-        Picasso.get().load(model.getImageLink().get(0)).into(holder.orderImg);
+        Picasso.get().load(model.getImageLink().get(0)).placeholder(R.drawable.eclipse_refresh).into(holder.orderImg);
         holder.shopName.setText(model.getShopName());
         holder.dateTime.setText(model.getOrderDate().toString());
         holder.pName.setText(model.getProductName());
-        holder.pCode.setText("Product Code"+model.getProductCode());
+        holder.pCode.setText("Product Code: "+model.getProductCode());
         holder.pMrp.setText("MRP: Rs."+model.getMrp());
         holder.pCategory.setText("Category: "+model.getCategory());
     }
@@ -55,7 +55,7 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
         TextView pCode;
         TextView pMrp;
         TextView pCategory;
-        ImageView deleteOrder;
+        public ImageView deleteOrder;
 
         public StoreOrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,7 +86,7 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(listener != null){
-                        if (position != RecyclerView.NO_POSITION){
+                        if(position != RecyclerView.NO_POSITION){
                             listener.onDeleteClick(getSnapshots().getSnapshot(position),position);
                         }
                     }
@@ -96,16 +96,16 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
         }
     }
 
-    public interface OnItemClickListener{
+    public interface OnItemClicklistener{
         void onItemClick(DocumentSnapshot documentSnapshot,int position);
-        void onDeleteClick(DocumentSnapshot documentSnapshot,int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener){
-        this.listener = listener;
+        void onDeleteClick(DocumentSnapshot documentSnapshot, int position);
     }
 
     public void deleteItem(int position){
         getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
+    public void setOnItemClickListener(OnItemClicklistener listener){
+        this.listener = listener;
     }
 }

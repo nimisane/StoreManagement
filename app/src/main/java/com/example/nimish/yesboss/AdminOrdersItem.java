@@ -11,11 +11,12 @@ public class AdminOrdersItem {
     String category;
     List<String> imageLink;
     //ArrayList<AdminSendOrderImageItem> imgLink;
-    Map<String,String> orderData;
+    Map<String,Integer> orderData;
     String mrp;
     Object orderDate;
     Object sortDate;
     Object dateOnly;
+    Object ordDate;
 
 //    public AdminOrdersItem(String productName, String productCode, String shopName, String category, ArrayList<AdminSendOrderImageItem> imgLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate) {
 //        this.productName = productName;
@@ -34,7 +35,7 @@ public class AdminOrdersItem {
 
     }
 
-    public AdminOrdersItem(String productName, String productCode, String shopName, String category, List<String> imageLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly) {
+    public AdminOrdersItem(String productName, String productCode, String shopName, String category, List<String> imageLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly, Object ordDate) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
@@ -45,6 +46,7 @@ public class AdminOrdersItem {
         this.orderDate = orderDate;
         this.sortDate = sortDate;
         this.dateOnly = dateOnly;
+        this.ordDate = ordDate;
     }
 
     public String getProductName() {
@@ -79,11 +81,11 @@ public class AdminOrdersItem {
         this.category = category;
     }
 
-    public Map<String, String> getOrderData() {
+    public Map<String, Integer> getOrderData() {
         return orderData;
     }
 
-    public void setOrderData(Map<String, String> orderData) {
+    public void setOrderData(Map<String, Integer> orderData) {
         this.orderData = orderData;
     }
 
@@ -125,5 +127,13 @@ public class AdminOrdersItem {
 
     public void setImageLink(List<String> imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Object getOrdDate() {
+        return ordDate;
+    }
+
+    public void setOrdDate(Object ordDate) {
+        this.ordDate = ordDate;
     }
 }

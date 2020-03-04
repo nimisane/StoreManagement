@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static com.example.nimish.yesboss.AdminOrdersReqFragment.DOCUMENTID;
+import static com.example.nimish.yesboss.AdminOrdersReqFragment.ORDATE;
 
 
 public class AdminOrdersFragment extends Fragment {
@@ -59,12 +60,14 @@ public class AdminOrdersFragment extends Fragment {
         adminOrderRecyclerView.setLayoutManager(layoutManager);
         adminOrderRecyclerView.setAdapter(storeOrderAdapter);
 
-        storeOrderAdapter.setOnItemClickListener(new StoreOrderAdapterUI.OnItemClickListener() {
+        storeOrderAdapter.setOnItemClickListener(new StoreOrderAdapterUI.OnItemClicklistener() {
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 Intent intent = new Intent(getContext(),UpdateStoreOrder.class);
                 String docID = documentSnapshot.getId();
+                String ordDate = documentSnapshot.get("dateOnly").toString();
                 intent.putExtra(DOCUMENTID,docID);
+                intent.putExtra(ORDATE,ordDate);
                 startActivity(intent);
             }
 
@@ -73,11 +76,15 @@ public class AdminOrdersFragment extends Fragment {
                 storeOrderAdapter.deleteItem(position);
             }
         });
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");
+        final String dateOnly = dateOnlyFormat.format(new Date());
+        loadRecyclerView(dateOnly);
         storeOrderAdapter.startListening();
     }
 

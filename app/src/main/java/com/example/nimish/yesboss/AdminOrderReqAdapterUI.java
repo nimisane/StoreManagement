@@ -32,7 +32,7 @@ public class AdminOrderReqAdapterUI extends FirestoreRecyclerAdapter<AdminOrderI
     protected void onBindViewHolder(@NonNull AdminOrderReqViewHolder holder, int position, @NonNull AdminOrderItem model) {
         holder.orderReqStatus.setText(model.getProductName());
         holder.orderReqTime.setText(model.getOrderDate().toString());
-        Picasso.get().load(model.getImgLink().get(0)).into(holder.orderReqImg);
+        Picasso.get().load(model.getImgLink().get(0)).placeholder(R.drawable.eclipse_refresh).into(holder.orderReqImg);
         holder.orderReqMrp.setText("MRP: Rs."+model.getMrp());
         holder.orderReqCode.setText("Product Code: "+model.getProductCode());
         holder.orderReqShop.setText(model.getShopName());

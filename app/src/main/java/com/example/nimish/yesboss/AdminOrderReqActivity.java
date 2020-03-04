@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -398,70 +399,70 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         final String proCode = productCode.getText().toString();
         final String proMrp = productMrp.getText().toString();
 
-        final String fs_36 = fs36.getText().toString();
-        final String hs_36 = hs36.getText().toString();
-        final String sf_36 = sf36.getText().toString();
-        final String fs_38 = fs38.getText().toString();
-        final String hs_38 = hs38.getText().toString();
-        final String sf_38 = sf38.getText().toString();
-        final String fs_40 = fs40.getText().toString();
-        final String hs_40 = hs40.getText().toString();
-        final String sf_40 = sf40.getText().toString();
-        final String fs_42 = fs42.getText().toString();
-        final String hs_42 = hs42.getText().toString();
-        final String sf_42 = sf42.getText().toString();
-        final String fs_44 = fs44.getText().toString();
-        final String hs_44 = hs44.getText().toString();
-        final String sf_44 = sf44.getText().toString();
-        final String fs_46 = fs46.getText().toString();
-        final String hs_46 = hs46.getText().toString();
-        final String sf_46 = sf46.getText().toString();
-        final String fs_48 = fs48.getText().toString();
-        final String hs_48 = hs48.getText().toString();
-        final String sf_48 = sf48.getText().toString();
-        final String fs_50 = fs50.getText().toString();
-        final String hs_50 = hs50.getText().toString();
-        final String sf_50 = sf50.getText().toString();
-        final String fs_54 = fs54.getText().toString();
-        final String hs_54 = hs54.getText().toString();
-        final String sf_54 = sf54.getText().toString();
-        final String fs_55 = fs55.getText().toString();
-        final String hs_55 = hs55.getText().toString();
-        final String sf_55 = sf55.getText().toString();
+//        final String fs_36 = fs36.getText().toString();
+//        final String hs_36 = hs36.getText().toString();
+//        final String sf_36 = sf36.getText().toString();
+//        final String fs_38 = fs38.getText().toString();
+//        final String hs_38 = hs38.getText().toString();
+//        final String sf_38 = sf38.getText().toString();
+//        final String fs_40 = fs40.getText().toString();
+//        final String hs_40 = hs40.getText().toString();
+//        final String sf_40 = sf40.getText().toString();
+//        final String fs_42 = fs42.getText().toString();
+//        final String hs_42 = hs42.getText().toString();
+//        final String sf_42 = sf42.getText().toString();
+//        final String fs_44 = fs44.getText().toString();
+//        final String hs_44 = hs44.getText().toString();
+//        final String sf_44 = sf44.getText().toString();
+//        final String fs_46 = fs46.getText().toString();
+//        final String hs_46 = hs46.getText().toString();
+//        final String sf_46 = sf46.getText().toString();
+//        final String fs_48 = fs48.getText().toString();
+//        final String hs_48 = hs48.getText().toString();
+//        final String sf_48 = sf48.getText().toString();
+//        final String fs_50 = fs50.getText().toString();
+//        final String hs_50 = hs50.getText().toString();
+//        final String sf_50 = sf50.getText().toString();
+//        final String fs_54 = fs54.getText().toString();
+//        final String hs_54 = hs54.getText().toString();
+//        final String sf_54 = sf54.getText().toString();
+//        final String fs_55 = fs55.getText().toString();
+//        final String hs_55 = hs55.getText().toString();
+//        final String sf_55 = sf55.getText().toString();
 
-//        final int fs_36 = Integer.parseInt(fs36.getText().toString());
-//        final int hs_36 = Integer.parseInt(hs36.getText().toString());
-//        final int sf_36 = Integer.parseInt(sf36.getText().toString());
-//        final int fs_38 = Integer.parseInt(fs38.getText().toString());
-//        final int hs_38 = Integer.parseInt(hs38.getText().toString());
-//        final int sf_38 = Integer.parseInt(sf38.getText().toString());
-//        final int fs_40 = Integer.parseInt(fs40.getText().toString());
-//        final int hs_40 = Integer.parseInt(hs40.getText().toString());
-//        final int sf_40 = Integer.parseInt(sf40.getText().toString());
-//        final int fs_42 = Integer.parseInt(fs42.getText().toString());
-//        final int hs_42 = Integer.parseInt(hs42.getText().toString());
-//        final int sf_42 = Integer.parseInt(sf42.getText().toString());
-//        final int fs_44 = Integer.parseInt(fs44.getText().toString());
-//        final int hs_44 = Integer.parseInt(hs44.getText().toString());
-//        final int sf_44 = Integer.parseInt(sf44.getText().toString());
-//        final int fs_46 = Integer.parseInt(fs46.getText().toString());
-//        final int hs_46 = Integer.parseInt(hs46.getText().toString());
-//        final int sf_46 = Integer.parseInt(sf46.getText().toString());
-//        final int fs_48 = Integer.parseInt(fs48.getText().toString());
-//        final int hs_48 = Integer.parseInt(hs48.getText().toString());
-//        final int sf_48 = Integer.parseInt(sf48.getText().toString());
-//        final int fs_50 = Integer.parseInt(fs50.getText().toString());
-//        final int hs_50 = Integer.parseInt(hs50.getText().toString());
-//        final int sf_50 = Integer.parseInt(sf50.getText().toString());
-//        final int fs_54 = Integer.parseInt(fs54.getText().toString());
-//        final int hs_54 = Integer.parseInt(hs54.getText().toString());
-//        final int sf_54 = Integer.parseInt(sf54.getText().toString());
-//        final int fs_55 = Integer.parseInt(fs55.getText().toString());
-//        final int hs_55 = Integer.parseInt(hs55.getText().toString());
-//        final int sf_55 = Integer.parseInt(sf55.getText().toString());
+        final int fs_36 = Integer.parseInt(fs36.getText().toString());
+        final int hs_36 = Integer.parseInt(hs36.getText().toString());
+        final int sf_36 = Integer.parseInt(sf36.getText().toString());
+        final int fs_38 = Integer.parseInt(fs38.getText().toString());
+        final int hs_38 = Integer.parseInt(hs38.getText().toString());
+        final int sf_38 = Integer.parseInt(sf38.getText().toString());
+        final int fs_40 = Integer.parseInt(fs40.getText().toString());
+        final int hs_40 = Integer.parseInt(hs40.getText().toString());
+        final int sf_40 = Integer.parseInt(sf40.getText().toString());
+        final int fs_42 = Integer.parseInt(fs42.getText().toString());
+        final int hs_42 = Integer.parseInt(hs42.getText().toString());
+        final int sf_42 = Integer.parseInt(sf42.getText().toString());
+        final int fs_44 = Integer.parseInt(fs44.getText().toString());
+        final int hs_44 = Integer.parseInt(hs44.getText().toString());
+        final int sf_44 = Integer.parseInt(sf44.getText().toString());
+        final int fs_46 = Integer.parseInt(fs46.getText().toString());
+        final int hs_46 = Integer.parseInt(hs46.getText().toString());
+        final int sf_46 = Integer.parseInt(sf46.getText().toString());
+        final int fs_48 = Integer.parseInt(fs48.getText().toString());
+        final int hs_48 = Integer.parseInt(hs48.getText().toString());
+        final int sf_48 = Integer.parseInt(sf48.getText().toString());
+        final int fs_50 = Integer.parseInt(fs50.getText().toString());
+        final int hs_50 = Integer.parseInt(hs50.getText().toString());
+        final int sf_50 = Integer.parseInt(sf50.getText().toString());
+        final int fs_54 = Integer.parseInt(fs54.getText().toString());
+        final int hs_54 = Integer.parseInt(hs54.getText().toString());
+        final int sf_54 = Integer.parseInt(sf54.getText().toString());
+        final int fs_55 = Integer.parseInt(fs55.getText().toString());
+        final int hs_55 = Integer.parseInt(hs55.getText().toString());
+        final int sf_55 = Integer.parseInt(sf55.getText().toString());
 
-//        final Map< String,Integer> orderData = new HashMap< String,Integer>();
-        final Map< String,String> orderData = new HashMap< String,String>();
+        final Map< String,Integer> orderData = new HashMap< String,Integer>();
+        //final Map< String,Integer> orderData = new HashMap<String,Integer>();
         orderData.put(FULL36,fs_36);
         orderData.put(HALF36,hs_36);
         orderData.put(SLIM36,sf_36);
@@ -509,6 +510,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
             final StorageReference fileReference = mStorageRef.child(adminProductPhotoItems.get(i).toString());
             final int finalI = i;
 
+            final int finalI1 = i+1;
             mUploadTask = fileReference.putFile(adminProductPhotoItems.get(i).getImg())
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -523,7 +525,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                 }
                             }, 6000);
 
-                            Toast.makeText(AdminOrderReqActivity.this, "Image Uploaded"+fileReference.getDownloadUrl().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AdminOrderReqActivity.this, "Image "+finalI1+" Uploaded", Toast.LENGTH_SHORT).show();
 
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
@@ -543,6 +545,21 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
+                                                        PatternItems patternItems = new PatternItems(proCode,imgDownload.get(0),category_name);
+                                                        db.collection("CategoryPattern").document(proCode)
+                                                                .set(patternItems)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Log.d("Pattern","Pattern Added");
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.d("Pattern",e.getMessage());
+                                                                    }
+                                                                });
                                                         Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
                                                         imgDownload.removeAll(imgDownload);
                                                         Intent i = new Intent(AdminOrderReqActivity.this,MainActivity.class);

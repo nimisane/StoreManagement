@@ -31,7 +31,7 @@ public class AdminSendImageAdapter extends RecyclerView.Adapter<AdminSendImageAd
     @Override
     public void onBindViewHolder(@NonNull AdminSendImageViewHolder holder, int position) {
         AdminSendOrderImageItem currentItem = adminSendOrderImageItems.get(position);
-        Picasso.get().load(currentItem.getImgUrl()).into(holder.imageView);
+        Picasso.get().load(currentItem.getImgUrl()).placeholder(R.drawable.eclipse_refresh).into(holder.imageView);
     }
 
     @Override
