@@ -10,19 +10,24 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
 
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Toolbar toolbar = findViewById(R.id.toolbar);
+        mAuth = FirebaseAuth.getInstance();
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -91,8 +96,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(adduser);
                 break;
 
+            case R.id.logout:
+                signOut();
+                break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void signOut() {
+        mAuth.signOut();
+        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }

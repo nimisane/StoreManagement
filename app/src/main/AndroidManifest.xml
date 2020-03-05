@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TotalCategoryOrderDetails"></activity>
+        <activity android:name=".LoginActivity">
+
+        </activity>
+        <activity android:name=".TotalCategoryOrderDetails" />
         <activity android:name=".TotalOrderDetails" />
         <activity android:name=".AllOrderCategoryList" />
         <activity android:name=".CategoryPatternGrid" />
