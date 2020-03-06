@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,6 +32,8 @@ public class AdminOrdersFragment extends Fragment {
     private RecyclerView adminOrderRecyclerView;
     private StoreOrderAdapterUI storeOrderAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    ImageView noDataImg;
+    TextView noDataText;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference shopOrderRef = db.collection("ShopOrders");
@@ -37,6 +42,11 @@ public class AdminOrdersFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_admin_orders,container,false);
+
+        noDataImg = rootView.findViewById(R.id.nodata_img);
+        noDataText = rootView.findViewById(R.id.no_data_text);
+        noDataImg.setVisibility(View.GONE);
+        noDataText.setVisibility(View.GONE);
 
         adminOrderRecyclerView = rootView.findViewById(R.id.orders_recyclerview);
         SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");

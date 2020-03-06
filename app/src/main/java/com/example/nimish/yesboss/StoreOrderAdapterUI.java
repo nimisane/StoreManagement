@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersItem, StoreOrderAdapterUI.StoreOrderViewHolder> {
 
     private OnItemClicklistener listener;
+    private FirestoreRecyclerOptions<AdminOrdersItem> options;
     /**
      * Create a new RecyclerView adapter that listens to a Firestore Query.  See {@link
      * FirestoreRecyclerOptions} for configuration options.
@@ -25,6 +26,7 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
      */
     public StoreOrderAdapterUI(@NonNull FirestoreRecyclerOptions<AdminOrdersItem> options) {
         super(options);
+        this.options = options;
     }
 
     @Override

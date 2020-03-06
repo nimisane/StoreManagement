@@ -3,19 +3,8 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
-    <string-array name="product_category_name">
-        <item>Item1</item>
-        <item>Item2</item>
-        <item>Item3</item>
-        <item>Item4</item>
-        <item>Item5</item>
-    </string-array>
-
-    <string-array name="shop">
-        <item>Shop1</item>
-        <item>Shop2</item>
-        <item>Item3</item>
-        <item>Item4</item>
-        <item>Item5</item>
+    <string-array name="profile_type">
+        <item>User Account</item>
+        <item>Admin Account</item>
     </string-array>
 </resources>

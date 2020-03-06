@@ -16,56 +16,95 @@
             android:id="@+id/shop_photo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher_round"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_store_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_shop_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="4dp"
             android:text="Shop Name"
-            android:textSize="24sp"
-            android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.134"
-            app:layout_constraintStart_toEndOf="@+id/shop_photo"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/add_user_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginTop="4dp"
             android:text="shop user id"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toEndOf="@+id/shop_photo"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
             app:layout_constraintTop_toBottomOf="@+id/user_shop_name" />
+
+        <TextView
+            android:id="@+id/account_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="4dp"
+            android:text="profile type"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/add_user_id" />
+
+        <TextView
+            android:id="@+id/user_addr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="4dp"
+            android:text="Address"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/account_type" />
 
         <ImageView
             android:id="@+id/delete_shop_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete_black_24dp"
             android:layout_margin="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_delete_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.058"
+            app:layout_constraintStart_toEndOf="@id/guideline6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/edit_user"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_edit_black_24dp"
-            android:layout_margin="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/delete_shop_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="94dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="316dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

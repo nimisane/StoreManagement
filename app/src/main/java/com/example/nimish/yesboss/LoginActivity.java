@@ -12,11 +12,18 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout userID;
     TextInputLayout password;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference shopRef = db.collection("Shops");
     final static String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void signIn(String email, final String password){
+    public void signIn(final String email, final String password){
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -73,9 +82,25 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             progressBar.setVisibility(View.GONE);
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            shopRef.whereEqualTo("email",email).whereEqualTo("profile_type","Admin Account").get()
+                                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                          //  for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                           //     Toast.makeText(getApplicationContext(),documentSnapshot.get("profile_type").toString(), Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                           // }
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getApplicationContext(),"Invaild Account Details",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
                        //     updateUI(user);
                         } else {
                             progressBar.setVisibility(View.GONE);
