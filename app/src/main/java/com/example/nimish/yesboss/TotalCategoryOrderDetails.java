@@ -68,6 +68,8 @@ import static com.example.nimish.yesboss.CategoryPatternGrid.PROCODE;
 
 public class TotalCategoryOrderDetails extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+    public static final int FLAG_START_DATE = 0;
+    public static final int FLAG_END_DATE = 1;
     TextView catPattern;
     TextView totalOrder;
     TextView fs36,hs36,sf36;
@@ -82,7 +84,10 @@ public class TotalCategoryOrderDetails extends AppCompatActivity implements Date
     TextView fs55,hs55,sf55;
     TextView totalfs,totalhs,totalsf;
     TextView selectDate;
+    TextView selectEndDate;
     String currentDate = "";
+
+    public int flag = 0;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference allOrderRef = db.collection("ShopOrders");
@@ -128,19 +133,45 @@ public class TotalCategoryOrderDetails extends AppCompatActivity implements Date
         totalOrder = findViewById(R.id.total_order);
         catPattern = findViewById(R.id.pattern_text);
         selectDate = findViewById(R.id.select_date);
+        selectEndDate = findViewById(R.id.select_end_date);
 
+//        selectDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DialogFragment datePicker = new DatePickerFragment();
+//                datePicker.show(getSupportFragmentManager(), "date picker");
+//            }
+//        });
+
+        final DatePickerFragment datePickerFragment = new DatePickerFragment();
         selectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
+                //DialogFragment datePicker = new DatePickerFragment();
+                // datePickerFragment.setFlag(FLAG_END_DATE);
+                setFlag(0);
+                datePickerFragment.show(getSupportFragmentManager(), "date picker");
+                //datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+
+        selectEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setFlag(1);
+                // datePickerFragment.setFlag(FLAG_END_DATE);
+                datePickerFragment.show(getSupportFragmentManager(),"date picker");
             }
         });
     }
 
+    public void setFlag(int i){
+        flag = i;
+    }
 
-    public void calculateTotal(final String category,final String currentDate){
-        allOrderRef.whereEqualTo("category",category).whereEqualTo("ordDate",currentDate)
+
+    public void calculateTotal(final String category,String startDate,String endDate){
+        allOrderRef.whereEqualTo("category",category).whereGreaterThanOrEqualTo("dateOnly",startDate).whereLessThanOrEqualTo("dateOnly",endDate)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -306,8 +337,10 @@ public class TotalCategoryOrderDetails extends AppCompatActivity implements Date
         final String category = intent.getStringExtra(CATEGORY);
         SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");
         String dateOnly = dateOnlyFormat.format(new Date());
-        selectDate.setText("Order Date: "+dateOnly);
-        calculateTotal(category,dateOnly);
+        selectDate.setText("Start Date: "+dateOnly);
+        selectEndDate.setText("End Date: "+dateOnly);
+        calculateTotal(category,dateOnly,dateOnly);
+       // calculateTotal(category,dateOnly);
 
     }
 
@@ -319,10 +352,20 @@ public class TotalCategoryOrderDetails extends AppCompatActivity implements Date
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         SimpleDateFormat dateOnlyFormat = new SimpleDateFormat("yyyy-MM-dd");
         currentDate = dateOnlyFormat.format(c.getTime());
-        selectDate.setText("Order Date: "+currentDate);
+        String start_date="";
+        String end_date = "";
+        if(flag == FLAG_START_DATE){
+            start_date=currentDate;
+            selectDate.setText("Start Date: "+start_date);
+        }
+        if(flag == FLAG_END_DATE){
+            end_date=currentDate;
+            selectEndDate.setText("End Date: "+end_date);
+        }
         Intent intent = getIntent();
         final String category = intent.getStringExtra(CATEGORY);
-        calculateTotal(category,currentDate);
+        calculateTotal(category,start_date,end_date);
+        //calculateTotal(category,currentDate);
     }
 
 }

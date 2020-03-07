@@ -127,7 +127,7 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            UserItems userItems = new UserItems(shopName,email,password,address,profileType);
+                            UserItems userItems = new UserItems(shopName,email,address,profileType);
                             shopRef.add(userItems).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {

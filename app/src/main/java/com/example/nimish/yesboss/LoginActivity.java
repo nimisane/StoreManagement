@@ -82,16 +82,24 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             progressBar.setVisibility(View.GONE);
                             FirebaseUser user = mAuth.getCurrentUser();
+                            final String[] proType = {""};
                             shopRef.whereEqualTo("email",email).whereEqualTo("profile_type","Admin Account").get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @Override
                                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                          //  for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                                           //     Toast.makeText(getApplicationContext(),documentSnapshot.get("profile_type").toString(), Toast.LENGTH_SHORT).show();
+                                            for(DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                                proType[0] = documentSnapshot.get("profile_type").toString();
+                                              //  Toast.makeText(getApplicationContext(), proType, Toast.LENGTH_SHORT).show();
+
+                                            }
+                                            if (proType[0].equals("Admin Account")){
                                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                 startActivity(intent);
                                                 finish();
-                                           // }
+                                            }
+                                            else {
+                                                Toast.makeText(getApplicationContext(), "Invalid login details", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
