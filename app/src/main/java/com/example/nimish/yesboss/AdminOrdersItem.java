@@ -17,6 +17,7 @@ public class AdminOrdersItem {
     Object sortDate;
     Object dateOnly;
     Object ordDate;
+    String deliverStatus;
 
 //    public AdminOrdersItem(String productName, String productCode, String shopName, String category, ArrayList<AdminSendOrderImageItem> imgLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate) {
 //        this.productName = productName;
@@ -35,7 +36,7 @@ public class AdminOrdersItem {
 
     }
 
-    public AdminOrdersItem(String productName, String productCode, String shopName, String category, List<String> imageLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly, Object ordDate) {
+    public AdminOrdersItem(String productName, String productCode, String shopName, String category, List<String> imageLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly, Object ordDate, String deliverStatus) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
@@ -47,6 +48,7 @@ public class AdminOrdersItem {
         this.sortDate = sortDate;
         this.dateOnly = dateOnly;
         this.ordDate = ordDate;
+        this.deliverStatus = deliverStatus;
     }
 
     public String getProductName() {
@@ -135,5 +137,13 @@ public class AdminOrdersItem {
 
     public void setOrdDate(Object ordDate) {
         this.ordDate = ordDate;
+    }
+
+    public String getDeliverStatus() {
+        return deliverStatus;
+    }
+
+    public void setDeliverStatus(String deliverStatus) {
+        this.deliverStatus = deliverStatus;
     }
 }

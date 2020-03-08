@@ -1,5 +1,6 @@
 package com.example.nimish.yesboss;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,15 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
         holder.pCode.setText("Product Code: "+model.getProductCode());
         holder.pMrp.setText("MRP: Rs."+model.getMrp());
         holder.pCategory.setText("Category: "+model.getCategory());
+        if (model.getDeliverStatus().equals("Pending")){
+            holder.deliveryStatus.setTextColor(Color.RED);
+            holder.deliveryStatus.setText("Delivery Status: "+model.getDeliverStatus());
+        }
+        else if (model.getDeliverStatus().equals("Complete")) {
+            holder.deliveryStatus.setTextColor(Color.rgb(50,205,50));
+            holder.deliveryStatus.setText("Delivery Status: " + model.getDeliverStatus());
+        }
+        holder.deliveryStatus.setText("Delivery Status: "+model.getDeliverStatus());
     }
 
     @NonNull
@@ -57,6 +67,7 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
         TextView pCode;
         TextView pMrp;
         TextView pCategory;
+        TextView deliveryStatus;
         public ImageView deleteOrder;
 
         public StoreOrderViewHolder(@NonNull View itemView) {
@@ -70,6 +81,7 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
             pMrp = itemView.findViewById(R.id.card_order_product_mrp);
             pCategory = itemView.findViewById(R.id.card_order_category);
             deleteOrder = itemView.findViewById(R.id.delete_order);
+            deliveryStatus = itemView.findViewById(R.id.card_order_delivery);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

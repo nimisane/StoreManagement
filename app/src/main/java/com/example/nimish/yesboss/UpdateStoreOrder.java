@@ -376,7 +376,7 @@ public class UpdateStoreOrder extends AppCompatActivity {
         String sortDate = dateFormat2.format(new Date());
         String currentDate = dateFormat.format(new Date());
 
-        reqRef.set(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate))
+        reqRef.set(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate,"Pending"))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

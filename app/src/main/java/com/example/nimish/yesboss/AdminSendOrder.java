@@ -378,7 +378,7 @@ public class AdminSendOrder extends AppCompatActivity {
         String dateOnly = dateOnlyFormat.format(new Date());
         String sortDate = dateFormat2.format(new Date());
         String currentDate = dateFormat.format(new Date());
-        sendRef.add(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate))
+        sendRef.add(new AdminOrdersItem(proName,proCode,shop_name,category_name,imageLink,orderData,proMrp,currentDate,sortDate,dateOnly,ordDate,"Pending"))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
