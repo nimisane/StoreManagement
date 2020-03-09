@@ -45,6 +45,7 @@
                 android:tint="@android:color/white" />
 
             <TextView
+                android:id="@+id/button_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"

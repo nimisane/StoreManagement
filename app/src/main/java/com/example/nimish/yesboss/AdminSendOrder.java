@@ -5,7 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -167,7 +169,8 @@ public class AdminSendOrder extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Toast.makeText(AdminSendOrder.this, "Error while loading!", Toast.LENGTH_SHORT).show();
+                    showToast("Error while loading!",0);
+                    //Toast.makeText(AdminSendOrder.this, "Error while loading!", Toast.LENGTH_SHORT).show();
                     Log.d("AdminSendOrder", e.toString());
                     return;
                 }
@@ -178,7 +181,7 @@ public class AdminSendOrder extends AppCompatActivity {
                     String proName = adminOrderItem.getProductName();
                     String proCode = adminOrderItem.getProductCode();
                     String shopName = adminOrderItem.getShopName();
-
+                    String orderStatus = adminOrderItem.getOrderStatus();
                     adminSendOrderImageItems.clear();
 
                     for (String imgUrl : adminOrderItem.getImgLink()) {
@@ -259,6 +262,9 @@ public class AdminSendOrder extends AppCompatActivity {
                     fs55.setText(full55);
                     hs55.setText(half55);
                     sf55.setText(slim55);
+                    if(orderStatus.equals("Order Placed")){
+                        submit.setVisibility(View.GONE);
+                    }
                 }
             }
         });
@@ -273,37 +279,6 @@ public class AdminSendOrder extends AppCompatActivity {
         final String proMrp = productMrp.getText().toString();
         final String category_name = select_category_spinner.getText().toString();
         final String shop_name = select_shop_spinner.getText().toString();
-
-//        final String fs_36 = fs36.getText().toString();
-////        final String hs_36 = hs36.getText().toString();
-////        final String sf_36 = sf36.getText().toString();
-////        final String fs_38 = fs38.getText().toString();
-////        final String hs_38 = hs38.getText().toString();
-////        final String sf_38 = sf38.getText().toString();
-////        final String fs_40 = fs40.getText().toString();
-////        final String hs_40 = hs40.getText().toString();
-////        final String sf_40 = sf40.getText().toString();
-////        final String fs_42 = fs42.getText().toString();
-////        final String hs_42 = hs42.getText().toString();
-////        final String sf_42 = sf42.getText().toString();
-////        final String fs_44 = fs44.getText().toString();
-////        final String hs_44 = hs44.getText().toString();
-////        final String sf_44 = sf44.getText().toString();
-////        final String fs_46 = fs46.getText().toString();
-////        final String hs_46 = hs46.getText().toString();
-////        final String sf_46 = sf46.getText().toString();
-////        final String fs_48 = fs48.getText().toString();
-////        final String hs_48 = hs48.getText().toString();
-////        final String sf_48 = sf48.getText().toString();
-////        final String fs_50 = fs50.getText().toString();
-////        final String hs_50 = hs50.getText().toString();
-////        final String sf_50 = sf50.getText().toString();
-////        final String fs_54 = fs54.getText().toString();
-////        final String hs_54 = hs54.getText().toString();
-////        final String sf_54 = sf54.getText().toString();
-////        final String fs_55 = fs55.getText().toString();
-////        final String hs_55 = hs55.getText().toString();
-////        final String sf_55 = sf55.getText().toString();
 
         final int fs_36 = Integer.parseInt(fs36.getText().toString());
         final int hs_36 = Integer.parseInt(hs36.getText().toString());
@@ -382,14 +357,17 @@ public class AdminSendOrder extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText(getApplicationContext(),"Order Placed",Toast.LENGTH_LONG).show();
+                        changeOrderStatus();
+                        showToast("Order Placed",1);
+                        //Toast.makeText(getApplicationContext(),"Order Placed",Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+                        showToast(e.getMessage(),0);
+                        //Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -397,5 +375,27 @@ public class AdminSendOrder extends AppCompatActivity {
 
     }
 
+    public void changeOrderStatus(){
+        reqRef.update("orderStatus","Order Placed");
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
+    }
 }
 

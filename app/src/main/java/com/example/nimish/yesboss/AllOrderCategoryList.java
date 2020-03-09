@@ -69,6 +69,7 @@ public class AllOrderCategoryList extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference allOrderRef = db.collection("ShopOrders");
+    TextView buttonText;
    // TextView totalOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +78,13 @@ public class AllOrderCategoryList extends AppCompatActivity {
 
         allordercatergory = findViewById(R.id.pattern_order_recycler);
         total = findViewById(R.id.register);
+        buttonText = findViewById(R.id.button_text);
         //totalOrder = findViewById(R.id.total_order_text);
 
         Intent intent = getIntent();
         final String category = intent.getStringExtra(CATEGORY);
         final String proCode = intent.getStringExtra(PROCODE);
+        buttonText.setText("View Total Order Of "+proCode);
         loadRecyclerView(proCode,category);
 
         total.setOnClickListener(new View.OnClickListener() {

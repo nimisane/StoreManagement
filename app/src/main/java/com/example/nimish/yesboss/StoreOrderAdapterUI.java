@@ -47,7 +47,9 @@ public class StoreOrderAdapterUI extends FirestoreRecyclerAdapter<AdminOrdersIte
             holder.deliveryStatus.setTextColor(Color.rgb(50,205,50));
             holder.deliveryStatus.setText("Delivery Status: " + model.getDeliverStatus());
         }
-        holder.deliveryStatus.setText("Delivery Status: "+model.getDeliverStatus());
+        else {
+            holder.deliveryStatus.setText("Delivery Status: " + model.getDeliverStatus());
+        }
     }
 
     @NonNull

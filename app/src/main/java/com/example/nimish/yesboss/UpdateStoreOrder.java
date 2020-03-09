@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -271,36 +273,6 @@ public class UpdateStoreOrder extends AppCompatActivity {
         final String category_name = select_category_spinner.getText().toString();
         final String shop_name = select_shop_spinner.getText().toString();
 
-//        final String fs_36 = fs36.getText().toString();
-//        final String hs_36 = hs36.getText().toString();
-//        final String sf_36 = sf36.getText().toString();
-//        final String fs_38 = fs38.getText().toString();
-//        final String hs_38 = hs38.getText().toString();
-//        final String sf_38 = sf38.getText().toString();
-//        final String fs_40 = fs40.getText().toString();
-//        final String hs_40 = hs40.getText().toString();
-//        final String sf_40 = sf40.getText().toString();
-//        final String fs_42 = fs42.getText().toString();
-//        final String hs_42 = hs42.getText().toString();
-//        final String sf_42 = sf42.getText().toString();
-//        final String fs_44 = fs44.getText().toString();
-//        final String hs_44 = hs44.getText().toString();
-//        final String sf_44 = sf44.getText().toString();
-//        final String fs_46 = fs46.getText().toString();
-//        final String hs_46 = hs46.getText().toString();
-//        final String sf_46 = sf46.getText().toString();
-//        final String fs_48 = fs48.getText().toString();
-//        final String hs_48 = hs48.getText().toString();
-//        final String sf_48 = sf48.getText().toString();
-//        final String fs_50 = fs50.getText().toString();
-//        final String hs_50 = hs50.getText().toString();
-//        final String sf_50 = sf50.getText().toString();
-//        final String fs_54 = fs54.getText().toString();
-//        final String hs_54 = hs54.getText().toString();
-//        final String sf_54 = sf54.getText().toString();
-//        final String fs_55 = fs55.getText().toString();
-//        final String hs_55 = hs55.getText().toString();
-//        final String sf_55 = sf55.getText().toString();
 
         final int fs_36 = Integer.parseInt(fs36.getText().toString());
         final int hs_36 = Integer.parseInt(hs36.getText().toString());
@@ -380,7 +352,8 @@ public class UpdateStoreOrder extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
+                        showToast("Data Updated Successfully",1);
+                        //Toast.makeText(getApplicationContext(),"Data Updated Successfully",Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.GONE);
 //                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 //                        startActivity(intent);
@@ -390,9 +363,29 @@ public class UpdateStoreOrder extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(getApplicationContext(),"Operation Failed",Toast.LENGTH_SHORT).show();
+                        showToast("Operation Failed",0);
+                       // Toast.makeText(getApplicationContext(),"Operation Failed",Toast.LENGTH_SHORT).show();
                         Log.d("updateFailed",e.getMessage());
                     }
                 });
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
     }
 }

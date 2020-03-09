@@ -1,7 +1,11 @@
 package com.example.nimish.yesboss;
 
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -69,19 +73,19 @@ public class AddCategoryActivity extends AppCompatActivity implements CategoryDi
     public void getNewCategory(String category) {
 
         if(category.trim().isEmpty()){
-            Toast.makeText(this,"Please enter a valid category",Toast.LENGTH_SHORT).show();
+            showToast("Please enter a valid category",0);
             return;
         }
         categoryRef.add(new AddCategoryItem(category))
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Toast.makeText(AddCategoryActivity.this,"added",Toast.LENGTH_SHORT).show();
+                showToast("added",1);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddCategoryActivity.this,"failed",Toast.LENGTH_SHORT).show();
+                        showToast("failed",0);
                     }
                 });
     }
@@ -106,6 +110,25 @@ public class AddCategoryActivity extends AppCompatActivity implements CategoryDi
                 addCategoryAdapterUI.deleteItem(position);
             }
         });
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
     }
 
 

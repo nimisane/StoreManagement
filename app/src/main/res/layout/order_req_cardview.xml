@@ -108,6 +108,20 @@
             />
 
         <TextView
+            android:id="@+id/card_order_req_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Status:"
+            android:textSize="16sp"
+            android:layout_margin="3dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
+            app:layout_constraintHorizontal_bias="0.010"
+            app:layout_constraintStart_toEndOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/card_order_req_category"
+            />
+
+        <TextView
             android:id="@+id/card_order_req_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -115,7 +129,7 @@
             android:text="date time"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_order_req_img_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/card_order_req_status" />
 
 
         <ImageView

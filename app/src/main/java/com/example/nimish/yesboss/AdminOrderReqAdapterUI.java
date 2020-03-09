@@ -1,6 +1,7 @@
 package com.example.nimish.yesboss;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,17 @@ public class AdminOrderReqAdapterUI extends FirestoreRecyclerAdapter<AdminOrderI
         holder.orderReqCode.setText("Product Code: "+model.getProductCode());
         holder.orderReqShop.setText(model.getShopName());
         holder.orderReqCategory.setText("Category: "+model.getCategory());
+        if (model.getOrderStatus().equals("Order Pending")){
+            holder.orderStatus.setTextColor(Color.RED);
+            holder.orderStatus.setText("Order Status: "+model.getOrderStatus());
+        }
+        else if (model.getOrderStatus().equals("Order Placed")) {
+            holder.orderStatus.setTextColor(Color.rgb(50,205,50));
+            holder.orderStatus.setText("Order Status: "+model.getOrderStatus());
+        }
+        else {
+            holder.orderStatus.setText("Order Status: "+model.getOrderStatus());
+        }
     }
 
     @NonNull
@@ -57,6 +69,7 @@ public class AdminOrderReqAdapterUI extends FirestoreRecyclerAdapter<AdminOrderI
         public TextView orderReqShop;
         public TextView orderReqCategory;
         public ImageView orderDelete;
+        TextView orderStatus;
 
         public AdminOrderReqViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +82,7 @@ public class AdminOrderReqAdapterUI extends FirestoreRecyclerAdapter<AdminOrderI
             orderReqShop = itemView.findViewById(R.id.card_order_req_shop);
             orderReqCategory = itemView.findViewById(R.id.card_order_req_category);
             orderDelete = itemView.findViewById(R.id.delete_order);
+            orderStatus = itemView.findViewById(R.id.card_order_req_status);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

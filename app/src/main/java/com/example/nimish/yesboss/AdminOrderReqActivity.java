@@ -6,7 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -399,36 +402,6 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         final String proCode = productCode.getText().toString();
         final String proMrp = productMrp.getText().toString();
 
-//        final String fs_36 = fs36.getText().toString();
-//        final String hs_36 = hs36.getText().toString();
-//        final String sf_36 = sf36.getText().toString();
-//        final String fs_38 = fs38.getText().toString();
-//        final String hs_38 = hs38.getText().toString();
-//        final String sf_38 = sf38.getText().toString();
-//        final String fs_40 = fs40.getText().toString();
-//        final String hs_40 = hs40.getText().toString();
-//        final String sf_40 = sf40.getText().toString();
-//        final String fs_42 = fs42.getText().toString();
-//        final String hs_42 = hs42.getText().toString();
-//        final String sf_42 = sf42.getText().toString();
-//        final String fs_44 = fs44.getText().toString();
-//        final String hs_44 = hs44.getText().toString();
-//        final String sf_44 = sf44.getText().toString();
-//        final String fs_46 = fs46.getText().toString();
-//        final String hs_46 = hs46.getText().toString();
-//        final String sf_46 = sf46.getText().toString();
-//        final String fs_48 = fs48.getText().toString();
-//        final String hs_48 = hs48.getText().toString();
-//        final String sf_48 = sf48.getText().toString();
-//        final String fs_50 = fs50.getText().toString();
-//        final String hs_50 = hs50.getText().toString();
-//        final String sf_50 = sf50.getText().toString();
-//        final String fs_54 = fs54.getText().toString();
-//        final String hs_54 = hs54.getText().toString();
-//        final String sf_54 = sf54.getText().toString();
-//        final String fs_55 = fs55.getText().toString();
-//        final String hs_55 = hs55.getText().toString();
-//        final String sf_55 = sf55.getText().toString();
 
         final int fs_36 = Integer.parseInt(fs36.getText().toString());
         final int hs_36 = Integer.parseInt(hs36.getText().toString());
@@ -495,11 +468,13 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
         orderData.put(SLIM55,sf_55);
 
         if(proName.trim().isEmpty() || proCode.trim().isEmpty() || proMrp.isEmpty()){
-            Toast.makeText(this, "Enter all the Fields", Toast.LENGTH_LONG).show();
+            showToast("Enter all the Fields",0);
+            //Toast.makeText(this, "Enter all the Fields", Toast.LENGTH_LONG).show();
             return;
         }
         if(adminProductPhotoItems.isEmpty()){
-            Toast.makeText(AdminOrderReqActivity.this,"Please select the prouct image",Toast.LENGTH_LONG).show();
+            showToast("Please select the product image",0);
+           // Toast.makeText(AdminOrderReqActivity.this,"Please select the prouct image",Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -525,7 +500,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                 }
                             }, 6000);
 
-                            Toast.makeText(AdminOrderReqActivity.this, "Image "+finalI1+" Uploaded", Toast.LENGTH_SHORT).show();
+                            showToast("Image "+finalI1+" Uploaded",1);
+                            //Toast.makeText(AdminOrderReqActivity.this, "Image "+finalI1+" Uploaded", Toast.LENGTH_SHORT).show();
 
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
@@ -541,7 +517,7 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                         String dateOnly = dateOnlyFormat.format(new Date());
                                         String sortDate = dateFormat2.format(new Date());
                                         String currentDate = dateFormat.format(new Date());
-                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,sortDate,dateOnly))
+                                        reqRef.add(new AdminOrderItem(proName,proCode,shop_name,category_name,imgDownload,orderData,proMrp,currentDate,sortDate,dateOnly,"Order Pending"))
                                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                                     @Override
                                                     public void onSuccess(DocumentReference documentReference) {
@@ -560,7 +536,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                                                         Log.d("Pattern",e.getMessage());
                                                                     }
                                                                 });
-                                                        Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
+                                                        showToast("Request Sent",1);
+                                                        //Toast.makeText(AdminOrderReqActivity.this,"Request Sent",Toast.LENGTH_LONG).show();
                                                         imgDownload.removeAll(imgDownload);
                                                         Intent i = new Intent(AdminOrderReqActivity.this,MainActivity.class);
                                                         startActivity(i);
@@ -569,7 +546,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(AdminOrderReqActivity.this,"Request Failed. Try Again!!",Toast.LENGTH_LONG).show();
+                                                        showToast("Request Failed. Try Again!!",0);
+                                                       // Toast.makeText(AdminOrderReqActivity.this,"Request Failed. Try Again!!",Toast.LENGTH_LONG).show();
                                                     }
                                                 });
 
@@ -581,7 +559,8 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AdminOrderReqActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                            showToast(e.toString(),0);
+                           // Toast.makeText(AdminOrderReqActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -593,6 +572,25 @@ public class AdminOrderReqActivity extends AppCompatActivity implements AdapterV
                         }
                     });
         }
+
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
 
     }
 }

@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                 String pwd = password.getEditText().getText().toString();
 
                 if(email.isEmpty() || pwd.isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Please enter valid login details",Toast.LENGTH_SHORT).show();
+                    showToast("Please enter valid login details",0);
+                    //Toast.makeText(getApplicationContext(),"Please enter valid login details",Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
@@ -82,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             progressBar.setVisibility(View.GONE);
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String userEmail = mAuth.getCurrentUser().getEmail();
+                            SharedPreferenceManager.getInstance(getApplicationContext()).setUser(userEmail);
                             final String[] proType = {""};
                             shopRef.whereEqualTo("email",email).whereEqualTo("profile_type","Admin Account").get()
                                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -98,14 +104,16 @@ public class LoginActivity extends AppCompatActivity {
                                                 finish();
                                             }
                                             else {
-                                                Toast.makeText(getApplicationContext(), "Invalid login details", Toast.LENGTH_SHORT).show();
+                                                showToast("Invalid login details",0);
+                                               // Toast.makeText(getApplicationContext(), "Invalid login details", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getApplicationContext(),"Invaild Account Details",Toast.LENGTH_SHORT).show();
+                                            showToast("Invaild Account Details",0);
+                                            //Toast.makeText(getApplicationContext(),"Invaild Account Details",Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
@@ -114,8 +122,8 @@ public class LoginActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            showToast("Authentication failed.",0);
+                           // Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
 
                          //   updateUI(null);
                         }
@@ -123,6 +131,25 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
+
     }
 
 }

@@ -14,25 +14,14 @@ public class AdminOrderItem {
     Object orderDate;
     Object sortDate;
     Object dateOnly;
+    String orderStatus;
 
     public AdminOrderItem() {
 
     }
 
-//    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, String> orderData, String mrp, Object orderDate, Object sortDate) {
-//        this.productName = productName;
-//        this.productCode = productCode;
-//        this.shopName = shopName;
-//        this.category = category;
-//        this.imgLink = imgLink;
-//        this.orderData = orderData;
-//        this.mrp = mrp;
-//        this.orderDate = orderDate;
-//        this.sortDate = sortDate;
-//    }
 
-
-    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly) {
+    public AdminOrderItem(String productName, String productCode, String shopName, String category, List<String> imgLink, Map<String, Integer> orderData, String mrp, Object orderDate, Object sortDate, Object dateOnly, String orderStatus) {
         this.productName = productName;
         this.productCode = productCode;
         this.shopName = shopName;
@@ -43,6 +32,7 @@ public class AdminOrderItem {
         this.orderDate = orderDate;
         this.sortDate = sortDate;
         this.dateOnly = dateOnly;
+        this.orderStatus = orderStatus;
     }
 
     public String getProductName() {
@@ -123,5 +113,13 @@ public class AdminOrderItem {
 
     public void setDateOnly(Object dateOnly) {
         this.dateOnly = dateOnly;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }

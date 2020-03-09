@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -25,6 +26,7 @@ public class CategoryPatternGrid extends AppCompatActivity {
     CategoryPatternAdapterUI categoryPatternAdapter;
     RecyclerView.LayoutManager layoutManager;
     RelativeLayout totalOrder;
+    TextView buttonText;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference shopRef = db.collection("CategoryPattern");
@@ -37,9 +39,11 @@ public class CategoryPatternGrid extends AppCompatActivity {
 
         patternRecycler = findViewById(R.id.pattern_recycler);
         totalOrder = findViewById(R.id.register);
+        buttonText = findViewById(R.id.button_text);
 
         Intent intent = getIntent();
         final String category_type = intent.getStringExtra(CATEGORY);
+        buttonText.setText("View Total Order Of "+category_type);
         loadRecyclerView(category_type);
 
         totalOrder.setOnClickListener(new View.OnClickListener() {

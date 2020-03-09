@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -93,7 +95,8 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
         final int[] shopExists = {0};
 
         if(shopName.isEmpty() || email.isEmpty() || pwd.isEmpty() || address.isEmpty()){
-           Toast.makeText(getApplicationContext(),"Please Fill all the details correctly",Toast.LENGTH_SHORT).show();
+            showToast("Please Fill all the details correctly",0);
+           //Toast.makeText(getApplicationContext(),"Please Fill all the details correctly",Toast.LENGTH_SHORT).show();
            return;
         }
 
@@ -104,7 +107,8 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
                         String shopname = documentSnapshot.get("shop_name").toString();
                         if(shopName.equals(shopname)){
                             shopExists[0] = 1;
-                            Toast.makeText(getApplicationContext(),"Shop is already registered in app",Toast.LENGTH_LONG).show();
+                            showToast("Shop is already registered in app",0);
+                            //Toast.makeText(getApplicationContext(),"Shop is already registered in app",Toast.LENGTH_LONG).show();
                             return;
 
                         }
@@ -131,7 +135,8 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
                             shopRef.add(userItems).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(getApplicationContext(),"User Registered with id:"+mAuth.getCurrentUser().getEmail(),Toast.LENGTH_SHORT).show();
+                                    showToast("User Registered with id:"+mAuth.getCurrentUser().getEmail(),1);
+                                    //Toast.makeText(getApplicationContext(),"User Registered with id:"+mAuth.getCurrentUser().getEmail(),Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(),UserActivity.class);
                                     startActivity(intent);
                                 }
@@ -142,7 +147,8 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
                             progressBar.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(AddUserActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            showToast(task.getException().getMessage(),0);
+                            //Toast.makeText(AddUserActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                            // updateUI(null);
                         }
 
@@ -158,6 +164,25 @@ public class AddUserActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    public void showToast(String message,int status){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = null;
+        if(status == 1) {
+            layout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        else if(status == 0) {
+            layout = inflater.inflate(R.layout.fail_toast_layout, (ViewGroup) findViewById(R.id.toast_msg_layout));
+        }
+        TextView toastText = layout.findViewById(R.id.toast_message);
+        toastText.setText(message);
+
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
 
     }
 }
